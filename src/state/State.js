@@ -11,9 +11,8 @@ const State = props => {
 
     const prepareText = () => {
         const characterList = text.split("").map(char => ({
-            character: char,
-            reached: false,
-            fulfilled: false,
+            correctCharacter: char,
+            typedCharacter: null,
             mistypes: {total: 0, charsTypedInstead: {}}
         }));
         dispatch({type: "set_character_list", characterList});
