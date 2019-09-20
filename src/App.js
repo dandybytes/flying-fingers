@@ -1,7 +1,6 @@
 import React from "react";
 import Stats from "./Stats";
 import TextBox from "./TextBox";
-import TypingInput from "./TypingInput";
 import Keyboard from "./Keyboard";
 import "./App.css";
 
@@ -14,7 +13,6 @@ function App() {
             </header>
             <Stats />
             <TextBox />
-            <TypingInput />
             <Keyboard />
         </div>
     );
