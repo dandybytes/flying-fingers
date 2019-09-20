@@ -1,0 +1,14 @@
+.TextBox {
+    height: 12rem;
+    width: 100%;
+    margin: 1rem 0;
+    padding: 1vw;
+    background-color: #9dd5f4;
+    overflow: hidden;
+    font-family: "Courier New", Courier, monospace;
+    font-size: 2vw;
+    font-weight: 700;
+    line-height: 3.25vw;
+    letter-spacing: 0.25vw;
+    color: #705ca8;
+}
