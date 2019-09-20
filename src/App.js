@@ -6,9 +6,9 @@ import Keyboard from "./components/Keyboard";
 import "./App.css";
 
 function App() {
-    const {prepareText} = useContext(Context);
+    const {initializeTextBox} = useContext(Context);
 
-    useEffect(() => prepareText(), []);
+    useEffect(() => initializeTextBox(), []);
 
     return (
         <div className="App">
