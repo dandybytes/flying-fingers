@@ -1,0 +1,21 @@
+.Key {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+    height: 3vw;
+    width: 3vw;
+    margin: 0 0.25vw 0.75vw 0.25vw;
+    border-radius: 0.2625vw;
+    background-color: rgba(255, 255, 255, 0.3);
+    background-color: #5e43a8;
+    /* color: #705ca8; */
+    /* color: rgba(255, 255, 255, 0.65); */
+    color: #4392c7;
+    font-weight: 400;
+    font-size: 0.75vw;
+}
+
+.Key-marked {
+    background-color: green;
+}

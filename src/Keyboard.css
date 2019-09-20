@@ -1,0 +1,8 @@
+.Keyboard {
+    /* margin: 0 auto; */
+    width: 55.5vw;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    font-family: "Roboto", sans-serif;
+}
