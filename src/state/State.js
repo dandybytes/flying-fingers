@@ -18,11 +18,14 @@ const State = props => {
         dispatch({type: "set_character_list", characterList});
     };
 
-    const resetCursorIndex = () => dispatch({type: "set_cursor_index", index: 0});
+    const setTypedValue = (index, inputValue) =>
+        dispatch({type: "set_typed_value", index, inputValue});
+
+    const setCursorIndex = index => dispatch({type: "set_cursor_index", index});
 
     const initializeTextBox = () => {
         prepareText();
-        resetCursorIndex();
+        setCursorIndex(0);
     };
 
     return (
@@ -30,7 +33,9 @@ const State = props => {
             value={{
                 characterList: state.characterList,
                 cursorIndex: state.cursorIndex,
-                initializeTextBox
+                initializeTextBox,
+                setCursorIndex,
+                setTypedValue
             }}
         >
             {props.children}
