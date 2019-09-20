@@ -3,11 +3,11 @@ import {Context} from "./../state/State";
 import "./TextBox.css";
 
 const TextBox = () => {
-    const {text} = useContext(Context);
+    const {chosenText} = useContext(Context);
 
     return (
         <div className="TextBox">
-            <p>{text}</p>
+            <p>{chosenText}</p>
         </div>
     );
 };
