@@ -1,13 +1,23 @@
 .Character {
     position: relative;
+    border-radius: 0.5vmin;
+    margin: 0.1vmin;
 }
 
-.Character-current-cursor {
+.Character-correct {
+    background-color: rgba(9, 175, 90, 0.3);
+}
+
+.Character-wrong {
+    background-color: rgba(255, 100, 70, 0.3);
+}
+
+.Character-cursor {
     color: #4392c7 !important;
     /* text-decoration: underline; */
 }
 
-.Character-current-cursor::after {
+.Character-cursor::after {
     content: "";
     position: absolute;
     width: 100%;
@@ -15,8 +25,8 @@
     bottom: 0;
     left: 0;
     background-color: #4392c7;
-    animation: blinking 0.5s infinite;
-    -webkit-animation: blinking 0.5s infinite backwards alternate;
+    animation: blinking 0.4s infinite;
+    -webkit-animation: blinking 0.4s infinite backwards alternate;
 }
 
 @-webkit-keyframes blinking {

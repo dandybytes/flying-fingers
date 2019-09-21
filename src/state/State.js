@@ -7,8 +7,8 @@ export const Context = createContext();
 const State = props => {
     const initialState = {
         testStarted: false,
-        testDuration: 20,
-        timeLeft: 20,
+        testDuration: 60,
+        timeLeft: 60,
         characterList: [],
         cursorIndex: 0
     };

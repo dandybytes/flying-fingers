@@ -5,8 +5,16 @@ import "./Character.css";
 const Character = ({correct, typed, index}) => {
     const {cursorIndex} = useContext(Context);
 
-    const characterClassName =
-        index === cursorIndex ? "Character Character-current-cursor" : "Character";
+    let characterClassName = "Character";
+    if (index === cursorIndex) characterClassName += " Character-cursor";
+    if (typed) {
+        if (typed === correct) {
+            characterClassName += " Character-correct";
+        } else {
+            characterClassName += " Character-wrong";
+        }
+    }
+
     return <span className={characterClassName}>{correct}</span>;
 };
 

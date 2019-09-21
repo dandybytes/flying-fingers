@@ -21,6 +21,8 @@ function App() {
     } = useContext(Context);
 
     const onKeyDown = e => {
+        console.log(e);
+
         // if test already started and no time left, ignore key press
         if (testStarted && timeLeft <= 0) return;
 
