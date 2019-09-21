@@ -1,5 +1,14 @@
 export default (state, action) => {
     switch (action.type) {
+        case "set_test_started":
+            return {...state, testStarted: true};
+
+        case "reset_test":
+            return {...state, testStarted: false, timeLeft: state.testDuration};
+
+        case "set_time_left":
+            return {...state, timeLeft: action.timeLeft};
+
         case "set_character_list":
             return {...state, characterList: action.characterList};
 
