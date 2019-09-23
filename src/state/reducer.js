@@ -1,11 +1,9 @@
+import {isPrintableChar, isBackspace, isValidInputChar} from "../utils/keyboardInputID";
+
+const setTypedValue = (index, value) => {};
+
 export default (state, action) => {
     switch (action.type) {
-        case "set_test_started":
-            return {...state, testStarted: true};
-
-        case "reset_test":
-            return {...state, testStarted: false, timeLeft: state.testDuration};
-
         case "set_time_left":
             return {...state, timeLeft: action.timeLeft};
 
@@ -15,27 +13,50 @@ export default (state, action) => {
         case "set_cursor_index":
             return {...state, cursorIndex: action.index};
 
-        case "set_typed_value":
-            const characterList = state.characterList.map((char, ind) => {
-                if (ind !== action.index) return char;
+        case "handle_key_down":
+            const {testStarted, timeLeft, testDuration, cursorIndex, characterList} = state;
+            let key = action.key;
 
-                let charOutput = {...char, typedCharacter: action.inputValue};
-                if (action.inputValue === null) return charOutput;
+            // if test already started and no time left, ignore key press
+            if (testStarted && timeLeft <= 0) return state;
 
-                if (action.inputValue !== char.correctCharacter) {
-                    charOutput.mistypes.total = charOutput.mistypes.total + 1;
-                    const mistakes = charOutput.mistypes.charsTypedInstead;
-                    if (!(action.inputValue in mistakes)) {
-                        mistakes[action.inputValue] = 1;
+            let newState = {...state};
+            let newCharacterList = [...state.characterList];
+            let newCursorIndex = cursorIndex;
+
+            // if test hasn't started, commence test on press of printable char
+            if (!testStarted && isPrintableChar(key)) {
+                newState = {...newState, timeLeft: testDuration};
+                newState = {...newState, testStarted: true};
+            }
+
+            // on backspace move cursor to previous element and clear typed value of prev el.
+            if (isBackspace(key) && cursorIndex > 0) {
+                newCursorIndex = cursorIndex - 1;
+                newCharacterList[newCursorIndex].typedCharacter = null;
+            }
+
+            // when printable key pressed...
+            if (cursorIndex < characterList.length && isValidInputChar(key)) {
+                // ...if the key is "enter", replace saved value with newline
+                if (key === "Enter") key = "\n";
+                newCharacterList[cursorIndex].typedCharacter = key;
+                // ...if the entered char doesn't match the expected char, record it as mistype
+                if (key !== newCharacterList[cursorIndex].correctCharacter) {
+                    const mistypes = newCharacterList[cursorIndex].mistypes;
+                    mistypes.total = mistypes.total + 1;
+                    const mistakes = mistypes.charsTypedInstead;
+                    if (!(key in mistakes)) {
+                        mistakes[key] = 1;
                     } else {
-                        mistakes[action.inputValue] = mistakes[action.inputValue] + 1;
+                        mistakes[key] = mistakes[key] + 1;
                     }
                 }
 
-                return charOutput;
-            });
+                newCursorIndex = cursorIndex + 1;
+            }
 
-            return {...state, characterList};
+            return {...newState, cursorIndex: newCursorIndex, characterList: newCharacterList};
 
         default:
             return state;

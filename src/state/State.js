@@ -7,8 +7,8 @@ export const Context = createContext();
 const State = props => {
     const initialState = {
         testStarted: false,
-        testDuration: 60,
-        timeLeft: 60,
+        testDuration: 30,
+        timeLeft: 10,
         characterList: [],
         cursorIndex: 0
     };
@@ -31,12 +31,9 @@ const State = props => {
         setCursorIndex(0);
     };
 
-    const setTypedValue = (index, inputValue) =>
-        dispatch({type: "set_typed_value", index, inputValue});
-
     const setTimeLeft = time => dispatch({type: "set_time_left", timeLeft: time});
 
-    const setTestStarted = () => dispatch({type: "set_test_started"});
+    const handleKeyDown = key => dispatch({type: "handle_key_down", key});
 
     return (
         <Context.Provider
@@ -48,9 +45,8 @@ const State = props => {
                 cursorIndex: state.cursorIndex,
                 initializeTextBox,
                 setTimeLeft,
-                setTestStarted,
                 setCursorIndex,
-                setTypedValue
+                handleKeyDown
             }}
         >
             {props.children}
