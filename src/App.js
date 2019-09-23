@@ -11,11 +11,23 @@ function App() {
         Context
     );
 
+    const scrollCursorToMiddleOfTextBox = () => {
+        const textBoxFrame = document.querySelector(".TextBox-Frame");
+        const cursorCharacter = document.querySelector(".Character-cursor");
+        const offsetTextBoxFrame = textBoxFrame.offsetTop;
+        const offsetCursorCharacter = cursorCharacter.offsetTop;
+        textBoxFrame.scrollTop = offsetCursorCharacter - offsetTextBoxFrame - 4 * 16;
+    };
+
     // populate text box when component mounts
     useEffect(() => initializeTextBox(), []);
 
     // create keyboard input listeners on the window object
-    useKeyDown(e => handleKeyDown(e.key));
+    useKeyDown(e => {
+        handleKeyDown(e.key);
+
+        scrollCursorToMiddleOfTextBox();
+    });
 
     // start countdown when test status set to 'started'
     useEffect(() => {

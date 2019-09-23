@@ -1,10 +1,14 @@
-.TextBox {
+.TextBox-Frame {
     height: 12rem;
     width: 100%;
     margin: 1rem 0;
     padding: 0.5vw 0.75vw;
     background-color: #a9dbf7;
     overflow: hidden;
+}
+
+.TextBox-Content {
+    background-color: transparent;
     font-family: "Courier New", Courier, monospace;
     font-size: 2vw;
     font-weight: 700;
