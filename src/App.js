@@ -14,9 +14,7 @@ function App() {
     const scrollCursorToMiddleOfTextBox = () => {
         const textBoxFrame = document.querySelector(".TextBox-Frame");
         const cursorCharacter = document.querySelector(".Character-cursor");
-        const offsetTextBoxFrame = textBoxFrame.offsetTop;
-        const offsetCursorCharacter = cursorCharacter.offsetTop;
-        textBoxFrame.scrollTop = offsetCursorCharacter - offsetTextBoxFrame - 4 * 16;
+        textBoxFrame.scrollTop = cursorCharacter.offsetTop - textBoxFrame.offsetTop - 4 * 16;
     };
 
     // populate text box when component mounts
@@ -25,7 +23,6 @@ function App() {
     // create keyboard input listeners on the window object
     useKeyDown(e => {
         handleKeyDown(e.key);
-
         scrollCursorToMiddleOfTextBox();
     });
 

@@ -16,7 +16,7 @@
     color: #4392c7 !important;
     /* text-decoration: underline; */
 }
-
+/* 
 .Character-cursor::after {
     content: "";
     position: absolute;
@@ -27,7 +27,7 @@
     background-color: #4392c7;
     animation: blinking 0.4s infinite;
     -webkit-animation: blinking 0.4s infinite backwards alternate;
-}
+} */
 
 @-webkit-keyframes blinking {
     0% {

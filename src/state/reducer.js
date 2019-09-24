@@ -1,7 +1,5 @@
 import {isPrintableChar, isBackspace, isValidInputChar} from "../utils/keyboardInputID";
 
-const setTypedValue = (index, value) => {};
-
 export default (state, action) => {
     switch (action.type) {
         case "set_time_left":
@@ -9,6 +7,9 @@ export default (state, action) => {
 
         case "set_character_list":
             return {...state, characterList: action.characterList};
+
+        case "set_word_list":
+            return {...state, wordList: action.wordList};
 
         case "set_cursor_index":
             return {...state, cursorIndex: action.index};
