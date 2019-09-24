@@ -1,5 +1,5 @@
 import React, {useContext} from "react";
-import {Context} from "./../state/State";
+import {Context} from "../../state/State";
 import "./Character.css";
 
 const Character = ({correct, typed, index}) => {

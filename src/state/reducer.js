@@ -5,6 +5,9 @@ export default (state, action) => {
         case "set_time_left":
             return {...state, timeLeft: action.timeLeft};
 
+        case "set_test_duration":
+            return {...state, testDuration: action.testDuration};
+
         case "set_character_list":
             return {...state, characterList: action.characterList};
 

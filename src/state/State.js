@@ -7,8 +7,8 @@ export const Context = createContext();
 const State = props => {
     const initialState = {
         testStarted: false,
-        testDuration: 30,
-        timeLeft: 10,
+        testDuration: 0,
+        timeLeft: 0,
         characterList: [],
         wordList: [],
         cursorIndex: 0
@@ -49,6 +49,9 @@ const State = props => {
         setCursorIndex(0);
     };
 
+    const setTestDuration = duration =>
+        dispatch({type: "set_test_duration", testDuration: duration});
+
     const setTimeLeft = time => dispatch({type: "set_time_left", timeLeft: time});
 
     const handleKeyDown = key => dispatch({type: "handle_key_down", key});
@@ -63,6 +66,7 @@ const State = props => {
                 wordList: state.wordList,
                 cursorIndex: state.cursorIndex,
                 initializeTextBox,
+                setTestDuration,
                 setTimeLeft,
                 setCursorIndex,
                 handleKeyDown

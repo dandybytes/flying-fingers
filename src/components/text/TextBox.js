@@ -1,11 +1,11 @@
 import React, {useContext} from "react";
-import {Context} from "./../state/State";
+import {Context} from "../../state/State";
 import Word from "./Word";
 import "./TextBox.css";
 // import Character from "./Character";
 
 const TextBox = () => {
-    const {characterList} = useContext(Context);
+    // const {characterList} = useContext(Context);
 
     // return (
     //     <div className="TextBox-Frame">

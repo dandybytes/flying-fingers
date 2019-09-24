@@ -1,6 +1,6 @@
 import React from "react";
 import "./Keyboard.css";
-import {keys} from "../data/keys";
+import {keys} from "../../data/keys";
 import Key from "./Key";
 
 const Keyboard = () => {

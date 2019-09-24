@@ -1,57 +1,23 @@
-import React, {useContext, useEffect} from "react";
-import {useKeyDown} from "./hooks/hooks";
+import React, {useContext} from "react";
 import {Context} from "./state/State";
-import Timer from "./components/Timer";
-import TextBox from "./components/TextBox";
-import Keyboard from "./components/Keyboard";
+import Intro from "./components/pages/Intro";
+import Test from "./components/pages/Test";
+import Results from "./components/pages/Results";
 import "./App.css";
 
 function App() {
-    const {testStarted, timeLeft, initializeTextBox, setTimeLeft, handleKeyDown} = useContext(
-        Context
-    );
+    const {testStarted, testDuration, timeLeft} = useContext(Context);
 
-    const scrollCursorToMiddleOfTextBox = () => {
-        const textBoxFrame = document.querySelector(".TextBox-Frame");
-        const cursorCharacter = document.querySelector(".Character-cursor");
-        textBoxFrame.scrollTop = cursorCharacter.offsetTop - textBoxFrame.offsetTop - 4 * 16;
-    };
+    let page;
+    if (testStarted && timeLeft <= 0) {
+        page = <Results />;
+    } else if (testDuration > 0) {
+        page = <Test />;
+    } else {
+        page = <Intro />;
+    }
 
-    // populate text box when component mounts
-    useEffect(() => initializeTextBox(), []);
-
-    // create keyboard input listeners on the window object
-    useKeyDown(e => {
-        handleKeyDown(e.key);
-        scrollCursorToMiddleOfTextBox();
-    });
-
-    // start countdown when test status set to 'started'
-    useEffect(() => {
-        if (testStarted) {
-            const interval = setInterval(() => {
-                if (timeLeft > 0) {
-                    setTimeLeft(timeLeft - 1);
-                } else {
-                    clearInterval(interval);
-                }
-            }, 1000);
-
-            return () => clearInterval(interval);
-        }
-    }, [testStarted, timeLeft]);
-
-    return (
-        <div className="App">
-            <header className="App-header">
-                <h1>Flying Fingers</h1>
-                <h3>Typing Speed Test</h3>
-            </header>
-            <Timer />
-            <TextBox />
-            <Keyboard />
-        </div>
-    );
+    return <div className="App">{page}</div>;
 }
 
 export default App;
