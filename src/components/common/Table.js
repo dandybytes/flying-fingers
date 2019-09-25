@@ -1,7 +1,7 @@
 import React from "react";
-import "./CharacterTable.css";
+import "./Table.css";
 
-const CharacterTable = ({title, data}) => {
+const Table = ({title, data}) => {
     return (
         <table>
             <thead>
@@ -10,8 +10,8 @@ const CharacterTable = ({title, data}) => {
                 </tr>
             </thead>
             <tbody>
-                {Object.keys(data).map(key => (
-                    <tr>
+                {Object.keys(data).map((key, index) => (
+                    <tr key={`table-row-${index}`}>
                         <th>{key}</th>
                         <td>{data[key]}</td>
                     </tr>
@@ -21,4 +21,4 @@ const CharacterTable = ({title, data}) => {
     );
 };
 
-export default CharacterTable;
+export default Table;

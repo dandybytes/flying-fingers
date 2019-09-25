@@ -1,6 +1,6 @@
 import React, {useContext} from "react";
 import {Context} from "./../../state/State";
-import CharacterTable from "./../results/CharacterTable";
+import Table from "../common/Table";
 import "./Results.css";
 
 const Results = () => {
@@ -8,7 +8,7 @@ const Results = () => {
     return (
         <div>
             <h1>Results Page</h1>
-            <CharacterTable title={"Characters"} data={results.chars} />
+            <Table title={"Characters"} data={results.chars} />
         </div>
     );
 };
