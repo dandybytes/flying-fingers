@@ -1,5 +1,6 @@
 import React, {useContext, useState, useEffect} from "react";
 import {Context} from "./state/State";
+import VideoBackground from "./components/common/VideoBackground";
 import Intro from "./components/pages/Intro";
 import Test from "./components/pages/Test";
 import Results from "./components/pages/Results";
@@ -23,7 +24,12 @@ function App() {
         }
     }, [testDuration]);
 
-    return <div className="App">{page}</div>;
+    return (
+        <div className="App">
+            <VideoBackground />
+            {page}
+        </div>
+    );
 }
 
 export default App;
