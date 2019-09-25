@@ -44,8 +44,11 @@ function Test() {
     return (
         <div className="Test">
             <header className="Test-header">
-                <h1>Flying Fingers</h1>
-                <h3>Start typing to begin the test</h3>
+                {testStarted ? (
+                    <h2>Flying Fingers Typing Test</h2>
+                ) : (
+                    <h2 className="pulsate">Start typing to begin the test</h2>
+                )}
             </header>
             <Timer />
             <TextBox />

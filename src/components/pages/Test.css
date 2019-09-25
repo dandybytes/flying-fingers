@@ -11,6 +11,7 @@
 }
 
 .Test h1,
+h2,
 h3 {
     color: #9dd5f4;
     text-shadow: 0 0 6px rgba(155, 215, 245, 0.5);
@@ -25,8 +26,35 @@ h3 {
     letter-spacing: 0.25rem;
 }
 
+.Test h2 {
+    margin: 2rem 0;
+    font-size: 2.5vw;
+    letter-spacing: 0.275rem;
+    opacity: 1;
+    font-weight: 700;
+}
+
 .Test h3 {
     margin: 1rem 0 1rem;
     font-size: 2.5vw;
     letter-spacing: 0.15rem;
+}
+
+.pulsate {
+    animation: pulsate 1.5s ease-out infinite;
+}
+
+@keyframes pulsate {
+    0% {
+        opacity: 1;
+        text-shadow: 0 0 1vw 1vw;
+    }
+    50% {
+        opacity: 0.2;
+        text-shadow: none;
+    }
+    100% {
+        opacity: 1;
+        text-shadow: 0 0 1vw 1vw;
+    }
 }
