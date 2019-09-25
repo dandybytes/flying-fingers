@@ -14,7 +14,10 @@ const Intro = () => {
             </header>
             <form
                 className="Intro-settings"
-                onSubmit={() => setTestDuration(Number(durationChoice))}
+                onSubmit={e => {
+                    e.preventDefault();
+                    setTestDuration(Number(durationChoice));
+                }}
             >
                 <select
                     className="Intro-duration"
@@ -24,6 +27,7 @@ const Intro = () => {
                     value={durationChoice}
                     onChange={e => setDurationChoice(e.target.value)}
                 >
+                    <option value="10">1/6 min</option>
                     <option value="60">1 min</option>
                     <option value="120">2 min</option>
                     <option value="180">3 min</option>

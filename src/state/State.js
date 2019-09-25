@@ -11,7 +11,22 @@ const State = props => {
         timeLeft: 0,
         characterList: [],
         wordList: [],
-        cursorIndex: 0
+        cursorIndex: 0,
+        results: {
+            chars: {
+                total: 0,
+                correct: 0,
+                mistyped: 0,
+                corrected: 0,
+                charPerMin: 0
+            },
+            words: {
+                total: 0,
+                correct: 0,
+                mistyped: 0,
+                wordPerMin: 0
+            }
+        }
     };
 
     const [state, dispatch] = useReducer(reducer, initialState);
@@ -56,6 +71,8 @@ const State = props => {
 
     const handleKeyDown = key => dispatch({type: "handle_key_down", key});
 
+    const setResults = () => dispatch({type: "set_results"});
+
     return (
         <Context.Provider
             value={{
@@ -65,11 +82,13 @@ const State = props => {
                 characterList: state.characterList,
                 wordList: state.wordList,
                 cursorIndex: state.cursorIndex,
+                results: state.results,
                 initializeTextBox,
                 setTestDuration,
                 setTimeLeft,
                 setCursorIndex,
-                handleKeyDown
+                handleKeyDown,
+                setResults
             }}
         >
             {props.children}

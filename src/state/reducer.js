@@ -1,6 +1,8 @@
 import {isPrintableChar, isBackspace, isValidInputChar} from "../utils/keyboardInputID";
 
 export default (state, action) => {
+    var {testStarted, testDuration, timeLeft, cursorIndex, characterList} = state;
+    var newState = {};
     switch (action.type) {
         case "set_time_left":
             return {...state, timeLeft: action.timeLeft};
@@ -17,14 +19,45 @@ export default (state, action) => {
         case "set_cursor_index":
             return {...state, cursorIndex: action.index};
 
+        case "set_results":
+            // let newState = {};
+            const totalChars = cursorIndex;
+            let correctChars = 0;
+            let correctedChars = 0;
+            let mistypes = 0;
+
+            for (let char of characterList) {
+                if (char.typedCharacter === null) {
+                    break;
+                } else if (char.mistypes.total > 0) {
+                    mistypes++;
+                    if (char.typedCharacter === char.correctCharacter) correctedChars++;
+                } else if (char.typedCharacter === char.correctCharacter) {
+                    correctChars++;
+                }
+            }
+
+            const charPerMin = (60 * totalChars) / testDuration;
+
+            newState = {...state};
+            newState.results.chars = {
+                total: totalChars,
+                correct: correctChars,
+                mistyped: mistypes,
+                corrected: correctedChars,
+                charPerMin
+            };
+
+            return newState;
+
         case "handle_key_down":
-            const {testStarted, timeLeft, testDuration, cursorIndex, characterList} = state;
+            // {testStarted, timeLeft, testDuration, cursorIndex, characterList} = state;
             let key = action.key;
 
-            // if test already started and no time left, ignore key press
+            // if test already started and no time left, ignore keystroke
             if (testStarted && timeLeft <= 0) return state;
 
-            let newState = {...state};
+            newState = {...state};
             let newCharacterList = [...state.characterList];
             let newCursorIndex = cursorIndex;
 

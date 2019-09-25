@@ -43,7 +43,7 @@ function Test() {
         <div className="Test">
             <header className="Test-header">
                 <h1>Flying Fingers</h1>
-                <h3>Typing Speed Test</h3>
+                <h3>Start typing to begin the test</h3>
             </header>
             <Timer />
             <TextBox />
