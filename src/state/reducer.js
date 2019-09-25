@@ -26,6 +26,7 @@ export default (state, action) => {
             let correctedChars = 0;
             let mistypes = 0;
 
+            // eslint-disable-next-line
             for (let char of characterList) {
                 if (char.typedCharacter === null) {
                     break;

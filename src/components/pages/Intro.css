@@ -34,21 +34,3 @@ h3 {
     display: flex;
     flex-direction: column;
 }
-
-.Intro-duration {
-    margin: 1rem;
-    border: 1px solid #9dd5f4;
-    border-radius: 0.3rem;
-    padding: 0.3rem 0.6rem;
-    background-color: transparent;
-    color: #9dd5f4;
-}
-
-.Intro-submit-button {
-    border: none;
-    border-radius: 0.3rem;
-    padding: 0.5rem 1rem;
-    background-color: #705ca8;
-    color: #9dd5f4;
-    /* color: #705ca8; */
-}

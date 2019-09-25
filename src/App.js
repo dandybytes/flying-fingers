@@ -14,6 +14,7 @@ function App() {
             setResults();
             setPage(<Results />);
         }
+        // eslint-disable-next-line
     }, [timeLeft]);
 
     useEffect(() => {

@@ -7,6 +7,7 @@ export const useWindowEvent = (event, callback) => {
         return () => {
             window.removeEventListener(event, callback);
         };
+        // eslint-disable-next-line
     }, [callback]);
 };
 

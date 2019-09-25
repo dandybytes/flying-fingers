@@ -16,6 +16,7 @@ function Test() {
     };
 
     // populate text box when component mounts
+    // eslint-disable-next-line
     useEffect(() => initializeTextBox(), []);
 
     // create keyboard input listeners on the window object
@@ -37,6 +38,7 @@ function Test() {
 
             return () => clearInterval(interval);
         }
+        // eslint-disable-next-line
     }, [testStarted, timeLeft]);
 
     return (

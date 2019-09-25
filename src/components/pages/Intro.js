@@ -23,17 +23,13 @@ const Intro = () => {
                 }}
             >
                 <DropDown
-                    value={durationChoice}
+                    value={Number(durationChoice)}
                     options={durationOptions}
-                    className="Intro-duration"
                     name="duration"
                     id="duration"
                     autoFocus
                     handleChange={e => setDurationChoice(e.target.value)}
                 />
-                {/* <button className="Intro-submit-button" type="submit">
-                    Take Test
-                </button> */}
                 <Button text="Take Text" type="submit" />
             </form>
         </div>
