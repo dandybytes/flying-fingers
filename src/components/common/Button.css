@@ -1,8 +1,25 @@
 .Button {
-    border: none;
     border-radius: 0.3rem;
-    padding: 0.5rem 1rem;
+
+    box-shadow: 0 0 1.25rem rgba(112, 92, 168, 0.7);
+    border: 0.1rem solid #9dd5f4;
     background-color: #705ca8;
     color: #9dd5f4;
-    box-shadow: 0.25rem 0.5rem 0.35rem rgba(0, 0, 0, 0.1);
+
+    padding: 0.75rem 1.5rem;
+    font-weight: 400;
+    text-transform: uppercase;
+    letter-spacing: 0.2vw;
+    cursor: pointer;
+    opacity: 0.75;
+}
+
+.Button:hover {
+    opacity: 1;
+}
+
+.Button:active {
+    box-shadow: 0 0 1rem rgba(157, 213, 244, 0.3);
+    opacity: 1;
+    outline: none;
 }

@@ -1,5 +1,6 @@
 .DropDown {
-    margin: 1rem;
+    display: inline;
+    margin: 1rem auto;
     border-color: #9dd5f4;
     border-radius: 0.3rem;
     padding: 0.3rem 0.6rem;

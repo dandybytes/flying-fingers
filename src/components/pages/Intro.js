@@ -30,7 +30,7 @@ const Intro = () => {
                     autoFocus
                     handleChange={e => setDurationChoice(e.target.value)}
                 />
-                <Button text="Take Text" type="submit" />
+                <Button text="Take Test" type="submit" style={{marginTop: "5vh"}} />
             </form>
         </div>
     );
