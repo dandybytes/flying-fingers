@@ -1,6 +1,7 @@
 import React, {useState, useContext} from "react";
 import {Context} from "../../state/State";
 import DropDown from "../common/DropDown";
+import Button from "./../common/Button";
 import {durationOptions} from "../../data/settings";
 import "./Intro.css";
 
@@ -30,9 +31,10 @@ const Intro = () => {
                     autoFocus
                     handleChange={e => setDurationChoice(e.target.value)}
                 />
-                <button className="Intro-submit-button" type="submit">
+                {/* <button className="Intro-submit-button" type="submit">
                     Take Test
-                </button>
+                </button> */}
+                <Button text="Take Text" type="submit" />
             </form>
         </div>
     );
