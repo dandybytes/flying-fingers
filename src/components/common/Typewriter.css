@@ -1,0 +1,15 @@
+.Typewriter {
+    display: inline-block;
+    border-right: 0.2rem solid #4392c7;
+    padding-right: 0.2rem;
+    animation: typewriter-blink 0.5s infinite alternate;
+}
+
+@keyframes typewriter-blink {
+    from {
+        border-color: transparent;
+    }
+    to {
+        border-color: #4392c7;
+    }
+}
