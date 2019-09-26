@@ -6,8 +6,9 @@ export const Context = createContext();
 
 const State = props => {
     const initialState = {
+        currentPage: "intro",
         testStarted: false,
-        testDuration: 0,
+        testDuration: 10,
         timeLeft: 0,
         characterList: [],
         wordList: [],
@@ -30,6 +31,8 @@ const State = props => {
     };
 
     const [state, dispatch] = useReducer(reducer, initialState);
+
+    const setCurrentPage = page => dispatch({type: "set_current_page", page});
 
     const processText = () => {
         // split entire text into a list of characters...
@@ -76,6 +79,7 @@ const State = props => {
     return (
         <Context.Provider
             value={{
+                currentPage: state.currentPage,
                 testStarted: state.testStarted,
                 testDuration: state.testDuration,
                 timeLeft: state.timeLeft,
@@ -83,6 +87,7 @@ const State = props => {
                 wordList: state.wordList,
                 cursorIndex: state.cursorIndex,
                 results: state.results,
+                setCurrentPage,
                 initializeTextBox,
                 setTestDuration,
                 setTimeLeft,

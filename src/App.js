@@ -7,27 +7,19 @@ import Results from "./components/pages/Results";
 import "./App.css";
 
 function App() {
-    const {testStarted, testDuration, timeLeft, setResults} = useContext(Context);
-    let [page, setPage] = useState(<Intro />);
+    const {currentPage} = useContext(Context);
+    let [pageToRender, setPageToRender] = useState(<Intro />);
 
     useEffect(() => {
-        if (testStarted && timeLeft <= 0) {
-            setResults();
-            setPage(<Results />);
-        }
-        // eslint-disable-next-line
-    }, [timeLeft]);
-
-    useEffect(() => {
-        if (testDuration > 0) {
-            setPage(<Test />);
-        }
-    }, [testDuration]);
+        if (currentPage === "intro") setPageToRender(<Intro />);
+        if (currentPage === "test") setPageToRender(<Test />);
+        if (currentPage === "results") setPageToRender(<Results />);
+    }, [currentPage]);
 
     return (
         <div className="App">
             <VideoBackground />
-            {page}
+            {pageToRender}
         </div>
     );
 }

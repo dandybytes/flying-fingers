@@ -1,4 +1,4 @@
-import React, {useState, useContext} from "react";
+import React, {useContext} from "react";
 import {Context} from "../../state/State";
 import Typewriter from "./../common/Typewriter";
 import DropDown from "../common/DropDown";
@@ -7,8 +7,7 @@ import {durationOptions} from "../../data/settings";
 import "./Intro.css";
 
 const Intro = () => {
-    const [durationChoice, setDurationChoice] = useState(60);
-    const {setTestDuration} = useContext(Context);
+    const {testDuration, setTestDuration, setCurrentPage} = useContext(Context);
 
     return (
         <div className="Intro">
@@ -18,23 +17,21 @@ const Intro = () => {
                     <Typewriter phrases={["Typing Speed Test"]} />
                 </h3>
             </header>
-            <form
-                className="Intro-settings"
-                onSubmit={e => {
-                    e.preventDefault();
-                    setTestDuration(Number(durationChoice));
-                }}
-            >
-                <DropDown
-                    value={Number(durationChoice)}
-                    options={durationOptions}
-                    name="duration"
-                    id="duration"
-                    autoFocus
-                    handleChange={e => setDurationChoice(e.target.value)}
-                />
-                <Button text="Take Test" type="submit" style={{marginTop: "5vh"}} />
-            </form>
+
+            <DropDown
+                value={Number(testDuration)}
+                options={durationOptions}
+                name="duration"
+                id="duration"
+                autoFocus
+                handleChange={e => setTestDuration(Number(e.target.value))}
+            />
+            <Button
+                text="Take Test"
+                type="button"
+                onClick={e => setCurrentPage("test")}
+                style={{marginTop: "5vh"}}
+            />
         </div>
     );
 };

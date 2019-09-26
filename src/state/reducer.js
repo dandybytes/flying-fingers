@@ -4,6 +4,9 @@ export default (state, action) => {
     var {testStarted, testDuration, timeLeft, cursorIndex, characterList} = state;
     var newState = {};
     switch (action.type) {
+        case "set_current_page":
+            return {...state, currentPage: action.page};
+
         case "set_time_left":
             return {...state, timeLeft: action.timeLeft};
 
