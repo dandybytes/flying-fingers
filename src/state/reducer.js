@@ -7,6 +7,9 @@ export default (state, action) => {
         case "set_current_page":
             return {...state, currentPage: action.page};
 
+        case "set_test_started":
+            return {...state, testStarted: action.testStarted};
+
         case "set_time_left":
             return {...state, timeLeft: action.timeLeft};
 
@@ -22,7 +25,7 @@ export default (state, action) => {
         case "set_cursor_index":
             return {...state, cursorIndex: action.index};
 
-        case "set_results":
+        case "compute_results":
             // let newState = {};
             const totalChars = cursorIndex;
             let correctChars = 0;

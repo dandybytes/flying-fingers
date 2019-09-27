@@ -8,7 +8,7 @@ const State = props => {
     const initialState = {
         currentPage: "intro",
         testStarted: false,
-        testDuration: 10,
+        testDuration: 0,
         timeLeft: 0,
         characterList: [],
         wordList: [],
@@ -33,6 +33,8 @@ const State = props => {
     const [state, dispatch] = useReducer(reducer, initialState);
 
     const setCurrentPage = page => dispatch({type: "set_current_page", page});
+
+    const setTestStarted = started => dispatch({type: "set_test_started", testStarted: started});
 
     const processText = () => {
         // split entire text into a list of characters...
@@ -74,7 +76,7 @@ const State = props => {
 
     const handleKeyDown = key => dispatch({type: "handle_key_down", key});
 
-    const setResults = () => dispatch({type: "set_results"});
+    const computeResults = () => dispatch({type: "compute_results"});
 
     return (
         <Context.Provider
@@ -88,12 +90,13 @@ const State = props => {
                 cursorIndex: state.cursorIndex,
                 results: state.results,
                 setCurrentPage,
+                setTestStarted,
                 initializeTextBox,
                 setTestDuration,
                 setTimeLeft,
                 setCursorIndex,
                 handleKeyDown,
-                setResults
+                computeResults
             }}
         >
             {props.children}

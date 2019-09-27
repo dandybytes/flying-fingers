@@ -1,5 +1,5 @@
 import React, {useContext, useEffect} from "react";
-import {useKeyDown} from "../../hooks/hooks";
+// import {useKeyDown} from "../../hooks/hooks";
 import {Context} from "../../state/State";
 import Timer from "../Timer";
 import TextBox from "../text/TextBox";
@@ -8,23 +8,21 @@ import Button from "../common/Button";
 import "./Test.css";
 
 function Test() {
-    const {setCurrentPage, testStarted, timeLeft, initializeTextBox, setTimeLeft, handleKeyDown} = useContext(Context); //prettier-ignore
+    const {
+        testStarted,
+        testDuration,
+        timeLeft,
+        setCurrentPage,
+        setTestStarted,
+        setTimeLeft,
+        setCursorIndex
+    } = useContext(Context);
 
-    const scrollCursorToMiddleOfTextBox = () => {
-        const textBoxFrame = document.querySelector(".TextBox-Frame");
-        const cursorCharacter = document.querySelector(".Character-cursor");
-        textBoxFrame.scrollTop = cursorCharacter.offsetTop - textBoxFrame.offsetTop - 4 * 16;
-    };
-
-    // populate text box when component mounts
-    // eslint-disable-next-line
-    useEffect(() => initializeTextBox(), []);
-
-    // create keyboard input listeners on the window object
-    useKeyDown(e => {
-        handleKeyDown(e.key);
-        scrollCursorToMiddleOfTextBox();
-    });
+    useEffect(() => {
+        setTestStarted(false);
+        setTimeLeft(testDuration);
+        setCursorIndex(0);
+    }, []);
 
     // start countdown when test status set to 'started'
     useEffect(() => {
