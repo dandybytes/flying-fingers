@@ -2,9 +2,19 @@ import React from "react";
 import PropTypes from "prop-types";
 import "./Button.css";
 
-const Button = ({text, onClick, className, type, style}) => {
+const Button = ({text, onClick, className, type, style, disabled}) => {
     return (
-        <button onClick={onClick} className={className} type={type} style={style}>
+        <button
+            onClick={onClick}
+            className={className}
+            type={type}
+            style={style}
+            disabled={disabled}
+        >
+            <span className="Button-border" />
+            <span className="Button-border" />
+            <span className="Button-border" />
+            <span className="Button-border" />
             {text}
         </button>
     );
@@ -15,7 +25,8 @@ Button.propTypes = {
     onClick: PropTypes.func,
     className: PropTypes.string,
     type: PropTypes.string,
-    style: PropTypes.object
+    style: PropTypes.object,
+    disabled: PropTypes.bool
 };
 
 Button.defaultProps = {

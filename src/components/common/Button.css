@@ -1,25 +1,206 @@
 .Button {
-    border-radius: 0.3rem;
+    position: relative;
+    overflow: hidden;
+    min-width: 45%;
 
     box-shadow: 0 0 1.25rem rgba(112, 92, 168, 0.7);
-    border: 0.1rem solid #9dd5f4;
+    /* border: 0.1rem solid #9dd5f4; */
+    border: none;
     background-color: #705ca8;
     color: #9dd5f4;
+    text-transform: uppercase;
 
     padding: 0.75rem 1.5rem;
     font-weight: 400;
-    text-transform: uppercase;
     letter-spacing: 0.2vw;
     cursor: pointer;
     opacity: 0.75;
 }
 
+.Button-ready {
+    text-transform: uppercase;
+}
+
+.Button-blocked {
+    text-transform: none;
+    opacity: 0.4;
+}
+
+.Button:disabled {
+    cursor: not-allowed;
+}
+
 .Button:hover {
+    /* border: 0.1rem solid transparent; */
+    border: none;
+    box-shadow: 0 0 2rem rgba(0, 255, 255, 0.5);
     opacity: 1;
 }
 
+.Button:disabled:hover {
+    background-color: rgb(196, 82, 61);
+}
+
 .Button:active {
-    box-shadow: 0 0 1rem rgba(157, 213, 244, 0.3);
+    box-shadow: 0 0 1.5rem rgba(157, 213, 244, 0.3);
     opacity: 1;
     outline: none;
+}
+
+.Button-animated .Button-border:nth-child(1) {
+    position: absolute;
+    z-index: 100;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 0.1rem;
+
+    /* background: #9dd5f4; */
+    background: linear-gradient(to right, #705ca8, #9dd5f4);
+    animation: animate1 2s linear infinite;
+
+    opacity: 0.75;
+}
+
+.Button-animated:hover .Button-border:nth-child(1) {
+    position: absolute;
+    z-index: 100;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 0.1rem;
+
+    /* background: linear-gradient(to right, #705ca8, #9dd5f4);
+    animation: animate1 2s linear infinite; */
+    background: #9dd5f4;
+    animation: none;
+
+    opacity: 1;
+}
+
+@keyframes animate1 {
+    0% {
+        transform: translateX(-100%);
+    }
+    100% {
+        transform: translateX(100%);
+    }
+}
+
+.Button-animated .Button-border:nth-child(2) {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 0.1rem;
+    height: 100%;
+
+    /* background: #9dd5f4; */
+    background: linear-gradient(to bottom, #705ca8, #9dd5f4);
+    animation: animate2 2s linear infinite;
+    animation-delay: 1s;
+
+    opacity: 0.75;
+}
+
+.Button-animated:hover .Button-border:nth-child(2) {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 0.1rem;
+    height: 100%;
+
+    /* background: linear-gradient(to bottom, #705ca8, #9dd5f4);
+    animation: animate2 2s linear infinite;
+    animation-delay: 1s; */
+    background: #9dd5f4;
+    animation: none;
+
+    opacity: 1;
+}
+
+@keyframes animate2 {
+    0% {
+        transform: translateY(-100%);
+    }
+    100% {
+        transform: translateY(100%);
+    }
+}
+
+.Button-animated .Button-border:nth-child(3) {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 0.1rem;
+
+    /* background: #9dd5f4; */
+    background: linear-gradient(to left, #705ca8, #9dd5f4);
+    animation: animate3 2s linear infinite;
+
+    opacity: 0.75;
+}
+
+.Button-animated:hover .Button-border:nth-child(3) {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 0.1rem;
+
+    /* background: linear-gradient(to left, #705ca8, #9dd5f4);
+    animation: animate3 2s linear infinite; */
+    background: #9dd5f4;
+    animation: none;
+
+    opacity: 1;
+}
+
+@keyframes animate3 {
+    0% {
+        transform: translateX(100%);
+    }
+    100% {
+        transform: translateX(-100%);
+    }
+}
+
+.Button-animated .Button-border:nth-child(4) {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 0.1rem;
+    height: 100%;
+
+    /* background: #9dd5f4; */
+    background: linear-gradient(to top, #705ca8, #9dd5f4);
+    animation: animate4 2s linear infinite;
+    animation-delay: 1s;
+
+    opacity: 0.75;
+}
+
+.Button-animated:hover .Button-border:nth-child(4) {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 0.1rem;
+    height: 100%;
+
+    /* background: linear-gradient(to top, #705ca8, #9dd5f4);
+    animation: animate4 2s linear infinite;
+    animation-delay: 1s; */
+    background: #9dd5f4;
+    animation: none;
+
+    opacity: 1;
+}
+
+@keyframes animate4 {
+    0% {
+        transform: translateY(100%);
+    }
+    100% {
+        transform: translateY(-100%);
+    }
 }
