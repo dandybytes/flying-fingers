@@ -1,4 +1,5 @@
 const durationOptions = [
+    {value: 0, label: "select duration"},
     {value: 10, label: "10 sec"},
     {value: 30, label: "30 sec"},
     {value: 60, label: "1 min"},

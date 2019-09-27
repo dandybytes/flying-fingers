@@ -2,8 +2,26 @@
     display: inline;
     margin: 1rem auto;
     border-color: #9dd5f4;
-    border-radius: 0.3rem;
+    outline: none;
     padding: 0.3rem 0.6rem;
     background-color: transparent;
     color: #9dd5f4;
+    text-align: center;
+    text-align-last: center;
+    -ms-text-align-last: center;
+    -moz-text-align-last: center;
 }
+
+.DropDown:focus,
+.DropDown:active {
+    border-color: rgb(0, 255, 255);
+    box-shadow: 0 0 2rem rgba(0, 255, 255, 0.5);
+}
+
+/* 
+.DropDown option {
+    text-align: center;
+    text-align-last: center;
+    -ms-text-align-last: center;
+    -moz-text-align-last: center;
+} */
