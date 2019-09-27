@@ -1,7 +1,15 @@
 import {isPrintableChar, isBackspace, isValidInputChar} from "../utils/keyboardInputID";
 
 export default (state, action) => {
-    var {testStarted, testDuration, timeLeft, cursorIndex, characterList} = state;
+    var {
+        testStarted,
+        testPaused,
+        testEnded,
+        testDuration,
+        timeLeft,
+        cursorIndex,
+        characterList
+    } = state;
     var newState = {};
     switch (action.type) {
         case "set_current_page":
@@ -9,6 +17,12 @@ export default (state, action) => {
 
         case "set_test_started":
             return {...state, testStarted: action.testStarted};
+
+        case "set_test_paused":
+            return {...state, testPaused: action.testPaused};
+
+        case "set_test_ended":
+            return {...state, testEnded: action.testEnded};
 
         case "set_time_left":
             return {...state, timeLeft: action.timeLeft};
@@ -61,8 +75,8 @@ export default (state, action) => {
             // {testStarted, timeLeft, testDuration, cursorIndex, characterList} = state;
             let key = action.key;
 
-            // if test already started and no time left, ignore keystroke
-            if (testStarted && timeLeft <= 0) return state;
+            // if test paused or ended, ignore keystrokes
+            if (testPaused || testEnded || timeLeft <= 0) return state;
 
             newState = {...state};
             let newCharacterList = [...state.characterList];

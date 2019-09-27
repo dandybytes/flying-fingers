@@ -16,7 +16,7 @@ h3 {
     color: #9dd5f4;
     text-shadow: 0 0 6px rgba(155, 215, 245, 0.5);
     font-weight: 300;
-    text-transform: uppercase;
+    /* text-transform: uppercase; */
     text-align: center;
 }
 

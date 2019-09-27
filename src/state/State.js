@@ -8,6 +8,8 @@ const State = props => {
     const initialState = {
         currentPage: "intro",
         testStarted: false,
+        testPaused: false,
+        testEnded: false,
         testDuration: 0,
         timeLeft: 0,
         characterList: [],
@@ -36,7 +38,11 @@ const State = props => {
 
     const setTestStarted = started => dispatch({type: "set_test_started", testStarted: started});
 
-    const processText = () => {
+    const setTestPaused = paused => dispatch({type: "set_test_paused", testPaused: paused});
+
+    const setTestEnded = ended => dispatch({type: "set_test_ended", testEnded: ended});
+
+    const processTextToCharList = () => {
         // split entire text into a list of characters...
         // ... and create an object for each character
         const characterList = text.split("").map((char, index) => ({
@@ -64,11 +70,6 @@ const State = props => {
 
     const setCursorIndex = index => dispatch({type: "set_cursor_index", index});
 
-    const initializeTextBox = () => {
-        processText();
-        setCursorIndex(0);
-    };
-
     const setTestDuration = duration =>
         dispatch({type: "set_test_duration", testDuration: duration});
 
@@ -83,6 +84,8 @@ const State = props => {
             value={{
                 currentPage: state.currentPage,
                 testStarted: state.testStarted,
+                testPaused: state.testPaused,
+                testEnded: state.testEnded,
                 testDuration: state.testDuration,
                 timeLeft: state.timeLeft,
                 characterList: state.characterList,
@@ -91,7 +94,9 @@ const State = props => {
                 results: state.results,
                 setCurrentPage,
                 setTestStarted,
-                initializeTextBox,
+                setTestPaused,
+                setTestEnded,
+                processTextToCharList,
                 setTestDuration,
                 setTimeLeft,
                 setCursorIndex,
