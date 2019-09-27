@@ -15,9 +15,11 @@ function Test() {
         setCurrentPage,
         setTestStarted,
         setTimeLeft,
-        setCursorIndex
+        setCursorIndex,
+        computeResults
     } = useContext(Context);
 
+    // reset cursor and test status (started & time left)
     useEffect(() => {
         setTestStarted(false);
         setTimeLeft(testDuration);
@@ -37,8 +39,16 @@ function Test() {
 
             return () => clearInterval(interval);
         }
+
         // eslint-disable-next-line
     }, [testStarted, timeLeft]);
+
+    // trigger result computation when time runs out
+    useEffect(() => {
+        if (testStarted && timeLeft <= 0) {
+            computeResults();
+        }
+    }, [timeLeft]);
 
     return (
         <div className="Test">
@@ -49,9 +59,11 @@ function Test() {
                     <h2 className="pulsate">Start typing to begin the test</h2>
                 )}
             </header>
-            <Timer />
-            <TextBox />
-            <Keyboard />
+            <main>
+                <Timer />
+                <TextBox />
+                <Keyboard />
+            </main>
             <footer>
                 <Button
                     text="Back to Settings"
@@ -59,12 +71,22 @@ function Test() {
                     onClick={e => setCurrentPage("intro")}
                     style={{marginTop: "5vh"}}
                 />
-                <Button
-                    text="See Test Results"
-                    type="button"
-                    onClick={e => setCurrentPage("results")}
-                    style={{marginTop: "5vh", marginLeft: "1vw"}}
-                />
+                {timeLeft <= 0 && (
+                    <Button
+                        className={
+                            timeLeft <= 0 ? "Button Button-animated" : "Button Button-blocked"
+                        }
+                        disabled={timeLeft > 0}
+                        text="See Test Results"
+                        type="button"
+                        onClick={e => setCurrentPage("results")}
+                        style={{
+                            marginTop: "5vh",
+                            marginLeft: "1vw",
+                            visibility: timeLeft <= 0 ? "visible" : "hidden"
+                        }}
+                    />
+                )}
             </footer>
         </div>
     );
