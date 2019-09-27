@@ -9,6 +9,13 @@ import "./Intro.css";
 const Intro = () => {
     const {testDuration, setTestDuration, setCurrentPage} = useContext(Context);
 
+    const handleDropdownSelect = e => {
+        e.target.blur();
+        setTestDuration(Number(e.target.value));
+    };
+
+    const handleTakeTestClick = e => setCurrentPage("test");
+
     return (
         <div className="Intro">
             <header className="Intro-header">
@@ -19,18 +26,20 @@ const Intro = () => {
             </header>
 
             <DropDown
-                value={Number(testDuration)}
+                value={testDuration}
                 options={durationOptions}
                 name="duration"
                 id="duration"
-                autoFocus
-                handleChange={e => setTestDuration(Number(e.target.value))}
+                autoFocus={testDuration <= 0}
+                handleChange={handleDropdownSelect}
             />
             <Button
-                text="Take Test"
+                className={testDuration <= 0 ? "Button Button-blocked" : "Button Button-animated"}
+                disabled={testDuration <= 0}
+                text={testDuration <= 0 ? "select duration to proceed" : "Take Test"}
                 type="button"
-                onClick={e => setCurrentPage("test")}
-                style={{marginTop: "5vh"}}
+                onClick={handleTakeTestClick}
+                style={{marginTop: "5vh", visibility: testDuration <= 0 ? "hidden" : "visible"}}
             />
         </div>
     );
