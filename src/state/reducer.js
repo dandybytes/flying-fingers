@@ -8,9 +8,11 @@ export default (state, action) => {
         testDuration,
         timeLeft,
         cursorIndex,
-        characterList
+        characterList,
+        wordList
     } = state;
     var newState = {};
+
     switch (action.type) {
         case "set_current_page":
             return {...state, currentPage: action.page};
@@ -40,39 +42,89 @@ export default (state, action) => {
             return {...state, cursorIndex: action.index};
 
         case "compute_results":
-            // let newState = {};
-            const totalChars = cursorIndex;
-            let correctChars = 0;
-            let correctedChars = 0;
-            let mistypes = 0;
+            const calcCharResults = () => {
+                // let newState = {};
+                const totalChars = cursorIndex;
+                let correctChars = 0;
+                let correctedChars = 0;
+                let mistypes = 0;
 
-            // eslint-disable-next-line
-            for (let char of characterList) {
-                if (char.typedCharacter === null) {
-                    break;
-                } else if (char.mistypes.total > 0) {
-                    mistypes++;
-                    if (char.typedCharacter === char.correctCharacter) correctedChars++;
-                } else if (char.typedCharacter === char.correctCharacter) {
-                    correctChars++;
+                // eslint-disable-next-line
+                for (let char of characterList) {
+                    // stop computing results as soon as a character with no user-input value is encountered
+                    if (char.typedCharacter === null) {
+                        break;
+                    } else if (char.mistypes.total > 0) {
+                        mistypes++;
+                        if (char.typedCharacter === char.correctCharacter) correctedChars++;
+                    } else if (char.typedCharacter === char.correctCharacter) {
+                        correctChars++;
+                    }
                 }
-            }
 
-            const charPerMin = (60 * totalChars) / testDuration;
+                const charPerMin = (60 * totalChars) / testDuration;
+
+                return {
+                    total: totalChars,
+                    correct: correctChars,
+                    mistyped: mistypes,
+                    corrected: correctedChars,
+                    charPerMin,
+                    accuracy: correctChars / totalChars
+                };
+            };
+
+            const calcWordResults = () => {
+                let indexOfLastWord = 0;
+                for (let i = 0, len = wordList.length; i < len; i++) {
+                    // check if last recorded cursor index found among characters of current word
+                    if (wordList[i].charList.includes(cursorIndex)) {
+                        // if word typed in full, register as last typed word
+                        if (cursorIndex === wordList[i].charList.length - 1) {
+                            indexOfLastWord = i;
+                        } else {
+                            // if word only partially typed, set previous word as last
+                            indexOfLastWord = i - 1;
+                        }
+                        break;
+                    }
+                }
+
+                let mistypedWords = 0;
+                // iterate through all the fully typed words
+                for (let wordInd = 0; wordInd <= indexOfLastWord; wordInd++) {
+                    // calculate length of word and reduce it by one to discount for the included space
+                    // currently not dismissing non-alphanumeric chars (e.g. comma or period at the end)
+                    let len = wordList[wordInd].charList.length - 1;
+                    // iterate through characters the given word comprises
+                    for (let indexOfCharInWord = 0; indexOfCharInWord < len; indexOfCharInWord++) {
+                        let analysedChar =
+                            characterList[wordList[wordInd].charList[indexOfCharInWord]];
+                        // if one of the chars in word mistyped, increase mistype counter by 1 and move to next word
+                        if (analysedChar.correctCharacter !== analysedChar.typedCharacter) {
+                            mistypedWords++;
+                            break;
+                        }
+                    }
+                }
+
+                const totalWords = indexOfLastWord + 1;
+
+                return {
+                    total: totalWords,
+                    correct: totalWords - mistypedWords,
+                    mistyped: mistypedWords,
+                    wordPerMin: (60 * totalWords) / testDuration
+                };
+            };
 
             newState = {...state};
-            newState.results.chars = {
-                total: totalChars,
-                correct: correctChars,
-                mistyped: mistypes,
-                corrected: correctedChars,
-                charPerMin
-            };
+            newState.results.chars = calcCharResults();
+            newState.results.words = calcWordResults();
 
             return newState;
 
         case "handle_key_down":
-            // {testStarted, timeLeft, testDuration, cursorIndex, characterList} = state;
             let key = action.key;
 
             // if test paused or ended, ignore keystrokes
