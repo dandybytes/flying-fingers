@@ -15,7 +15,16 @@ const Character = ({correct, typed, index}) => {
         }
     }
 
-    return <span className={characterClassName}>{correct === "\n" ? "↵" : correct}</span>;
+    const charSpan =
+        typed && typed !== correct ? (
+            <span className={characterClassName} title={`correct: ${correct}\n typed: ${typed}`}>
+                {correct === "\n" ? "↵" : correct}
+            </span>
+        ) : (
+            <span className={characterClassName}>{correct === "\n" ? "↵" : correct}</span>
+        );
+
+    return charSpan;
 };
 
 export default Character;
