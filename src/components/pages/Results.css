@@ -1,0 +1,19 @@
+.Results h1 {
+    color: #9dd5f4;
+    text-shadow: 0 0 6px rgba(155, 215, 245, 0.5);
+    font-weight: 300;
+    text-transform: uppercase;
+    text-align: center;
+    margin: 2rem 0;
+    font-size: 6.25vw;
+    letter-spacing: 0.5rem;
+}
+
+.Results-main {
+    display: flex;
+}
+
+.Results-footer {
+    display: flex;
+    justify-content: space-evenly;
+}
