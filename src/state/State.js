@@ -60,8 +60,8 @@ const State = props => {
         let currentWord = [];
         characterList.forEach(char => {
             currentWord.push(char.charIndex);
-            if (char.correctCharacter === " ") {
-                wordList.push(currentWord);
+            if (char.correctCharacter === " " || char.correctCharacter === "\n") {
+                wordList.push({charList: currentWord});
                 currentWord = [];
             }
         });
