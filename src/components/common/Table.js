@@ -2,9 +2,9 @@ import React from "react";
 import PropTypes from "prop-types";
 import "./Table.css";
 
-const Table = ({title, data}) => {
+const Table = ({title, data, className}) => {
     return (
-        <table>
+        <table className={className}>
             <thead>
                 <tr>
                     <th colSpan="2">{title}</th>
