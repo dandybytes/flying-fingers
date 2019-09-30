@@ -1,6 +1,7 @@
 import React, {useContext} from "react";
 import {Context} from "./../../state/State";
 import Table from "../common/Table";
+import MistypesTable from "./../results/MistypesTable";
 import Button from "../common/Button";
 import "./Results.css";
 
@@ -11,7 +12,7 @@ const Results = () => {
         "words per minute": results.words.wordPerMin,
         accuracy: results.chars.accuracy.toFixed(2),
         "characters per minute": results.chars.charPerMin,
-        "total words typed": results.words.total
+        "adjusted speed (wpm)": (results.words.wordPerMin * results.chars.accuracy).toFixed(2)
     };
 
     const charResults = {
@@ -42,6 +43,8 @@ const Results = () => {
         [results.speed.slowestThree[2][0]]: [results.speed.slowestThree[2][1]]
     };
 
+    const mistypeStats = results.mistypeStats.slice(0, 4);
+
     return (
         <div className="Results">
             <header className="Results-header">
@@ -53,6 +56,10 @@ const Results = () => {
                 <Table title={"Words"} data={wordResults} />
                 <Table title={"Fastest Characters"} data={fastestChars} />
                 <Table title={"Slowest Characters"} data={slowestChars} />
+                <MistypesTable
+                    caption={"Most Frequently Mistyped Characters"}
+                    data={mistypeStats}
+                />
             </main>
             <footer className="Results-footer">
                 <Button

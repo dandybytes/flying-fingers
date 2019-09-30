@@ -1,0 +1,34 @@
+.MistypesTable {
+    margin: 1rem;
+    border-collapse: collapse;
+    color: rgba(0, 0, 0, 0.7);
+}
+
+.MistypesTable caption {
+    margin-bottom: 0.5rem;
+}
+
+.MistypesTable th,
+td {
+    border: 1px dotted #9dd5f4;
+    padding: 0.5rem;
+}
+
+.MistypesTable thead {
+    text-transform: none;
+    letter-spacing: 0;
+}
+
+.MistypesTable thead th {
+    font-weight: 400;
+}
+
+.MistypesTable th {
+    text-align: center;
+    font-weight: 300;
+}
+
+.MistypesTable td {
+    font-weight: 300;
+    text-align: center;
+}

@@ -178,10 +178,55 @@ export default (state, action) => {
                 return {speedArr, fastestThree, slowestThree};
             };
 
+            const calcMistypeStats = () => {
+                const mistypeArr = Object.keys(typedCharInventory)
+                    // --> [{char: 'a', mistypes: 1, mistypeIncidence: 0.5, charsTypedInstead: {s: 1}}]
+                    .map(char => {
+                        const charsTypedInsteadDictionary = typedCharInventory[
+                            char
+                        ].mistypes.reduce((acc, mistype) => {
+                            if (acc[mistype.charTypedInstead]) {
+                                acc[mistype.charTypedInstead] = acc[mistype.charTypedInstead] + 1;
+                            } else {
+                                acc[mistype.charTypedInstead] = 1;
+                            }
+                            return acc;
+                        }, {});
+
+                        const charsTypedInstead = Object.keys(charsTypedInsteadDictionary)
+                            .map(char => ({char, incidence: charsTypedInsteadDictionary[char]}))
+                            .sort((a, b) => b.incidence - a.incidence)
+                            // .map(charObj => `${charObj.char}(x${charObj.incidence})`)
+                            .map(charObj => `${charObj.char}`)
+                            .join(" ");
+
+                        return {
+                            char,
+                            mistypes: typedCharInventory[char].mistypes.length,
+                            mistypeIncidence:
+                                typedCharInventory[char].mistypes.length /
+                                typedCharInventory[char].occurrences.length,
+                            // reduce arr of mistypes to frequency object: {d: 3, b: 1}
+                            charsTypedInstead
+                        };
+                    })
+                    // sort mistypeArray in order of descending mistype frequency
+                    .sort((a, b) =>
+                        // if mistype incidence same, sort by total num of mistypes
+                        // otherwise, sort by mistype incidence
+                        b.mistypeIncidence - a.mistypeIncidence === 0
+                            ? b.mistypes - a.mistypes
+                            : b.mistypeIncidence - a.mistypeIncidence
+                    );
+
+                return mistypeArr;
+            };
+
             newState = {...state};
             newState.results.chars = calcCharResults();
             newState.results.words = calcWordResults();
             newState.results.speed = calcSpeedResults();
+            newState.results.mistypeStats = calcMistypeStats();
 
             return newState;
 
