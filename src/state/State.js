@@ -15,6 +15,7 @@ const State = props => {
         characterList: [],
         wordList: [],
         cursorIndex: 0,
+        typedCharInventory: {},
         results: {
             chars: {
                 total: 0,
@@ -49,7 +50,7 @@ const State = props => {
             charIndex: index,
             correctCharacter: char,
             typedCharacter: null,
-            mistypes: {total: 0, charsTypedInstead: {}}
+            mistypes: []
         }));
         dispatch({type: "set_character_list", characterList});
 

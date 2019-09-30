@@ -47,15 +47,15 @@ export default (state, action) => {
                 const totalChars = cursorIndex;
                 let correctChars = 0;
                 let correctedChars = 0;
-                let mistypes = 0;
+                let mistyped = 0;
 
                 // eslint-disable-next-line
                 for (let char of characterList) {
                     // stop computing results as soon as a character with no user-input value is encountered
                     if (char.typedCharacter === null) {
                         break;
-                    } else if (char.mistypes.total > 0) {
-                        mistypes++;
+                    } else if (char.mistypes.length > 0) {
+                        mistyped++;
                         if (char.typedCharacter === char.correctCharacter) correctedChars++;
                     } else if (char.typedCharacter === char.correctCharacter) {
                         correctChars++;
@@ -67,7 +67,7 @@ export default (state, action) => {
                 return {
                     total: totalChars,
                     correct: correctChars,
-                    mistyped: mistypes,
+                    mistyped,
                     corrected: correctedChars,
                     charPerMin,
                     accuracy: correctChars / totalChars
@@ -133,11 +133,12 @@ export default (state, action) => {
             newState = {...state};
             let newCharacterList = [...state.characterList];
             let newCursorIndex = cursorIndex;
+            let newTypedCharInventory = {...state.typedCharInventory};
 
             // if test hasn't started, commence test on press of printable char
             if (!testStarted && isPrintableChar(key)) {
-                newState = {...newState, timeLeft: testDuration};
-                newState = {...newState, testStarted: true};
+                newState.timeLeft = testDuration;
+                newState.testStarted = true;
             }
 
             // on backspace move cursor to previous element and clear typed value of prev el.
@@ -150,23 +151,42 @@ export default (state, action) => {
             if (cursorIndex < characterList.length && isValidInputChar(key)) {
                 // ...if the key is "enter", replace saved value with newline
                 if (key === "Enter") key = "\n";
+                // save the typed key in the current cursor character object
                 newCharacterList[cursorIndex].typedCharacter = key;
-                // ...if the entered char doesn't match the expected char, record it as mistype
+
+                const correctChar = characterList[cursorIndex].correctCharacter;
+                // if the correct char value at the current cursor location already registerd in inventory
+                if (newTypedCharInventory[correctChar]) {
+                    // ...add current cursor index to its list of occurrences
+                    newTypedCharInventory[correctChar].occurrences.push(cursorIndex); //prettier-ignore
+                } else {
+                    // ...otherwise, register the correct char at current cursor location in inventory
+                    newTypedCharInventory[correctChar] = {
+                        occurrences: [cursorIndex],
+                        mistypes: []
+                    };
+                }
+
+                // ...if the entered char doesn't match the expected value
                 if (key !== newCharacterList[cursorIndex].correctCharacter) {
-                    const mistypes = newCharacterList[cursorIndex].mistypes;
-                    mistypes.total = mistypes.total + 1;
-                    const mistakes = mistypes.charsTypedInstead;
-                    if (!(key in mistakes)) {
-                        mistakes[key] = 1;
-                    } else {
-                        mistakes[key] = mistakes[key] + 1;
-                    }
+                    // ...add entered char to array of mistypes at current cursor location
+                    newCharacterList[cursorIndex].mistypes.push(key);
+                    // ...and add the mistype to the inventory under correct (expected) character
+                    newTypedCharInventory[correctChar].mistypes.push({
+                        charListIndex: cursorIndex,
+                        charTypedInstead: key
+                    });
                 }
 
                 newCursorIndex = cursorIndex + 1;
             }
 
-            return {...newState, cursorIndex: newCursorIndex, characterList: newCharacterList};
+            return {
+                ...newState,
+                cursorIndex: newCursorIndex,
+                characterList: newCharacterList,
+                typedCharInventory: newTypedCharInventory
+            };
 
         default:
             return state;
