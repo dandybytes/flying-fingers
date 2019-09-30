@@ -22,19 +22,13 @@ function Test() {
         processTextToCharList,
         setTimeLeft,
         setCursorIndex,
+        setLastKeyPressTime,
         handleKeyDown,
-        computeResults
+        computeResults,
+        resetTestData
     } = useContext(Context);
 
     let [showModal, setShowModal] = useState(false);
-
-    const resetTestData = () => {
-        setTestStarted(false);
-        setTestPaused(false);
-        setTestEnded(false);
-        setTimeLeft(testDuration);
-        setCursorIndex(0);
-    };
 
     useEffect(() => {
         // reset cursor, test status, and time left when Test page mounts
@@ -138,6 +132,7 @@ function Test() {
                         onClick={e => {
                             setTestPaused(false);
                             setShowModal(false);
+                            setLastKeyPressTime(new Date().getTime());
                         }}
                         style={{
                             color: "white",

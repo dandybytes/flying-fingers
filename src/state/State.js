@@ -15,6 +15,7 @@ const State = props => {
         characterList: [],
         wordList: [],
         cursorIndex: 0,
+        lastKeyPressTime: null,
         typedCharInventory: {},
         results: {
             chars: {
@@ -71,6 +72,8 @@ const State = props => {
 
     const setCursorIndex = index => dispatch({type: "set_cursor_index", index});
 
+    const setLastKeyPressTime = time => dispatch({type: "set_last_keypress_time", time});
+
     const setTestDuration = duration =>
         dispatch({type: "set_test_duration", testDuration: duration});
 
@@ -79,6 +82,8 @@ const State = props => {
     const handleKeyDown = key => dispatch({type: "handle_key_down", key});
 
     const computeResults = () => dispatch({type: "compute_results"});
+
+    const resetTestData = () => dispatch({type: "reset_test_data"});
 
     return (
         <Context.Provider
@@ -101,8 +106,10 @@ const State = props => {
                 setTestDuration,
                 setTimeLeft,
                 setCursorIndex,
+                setLastKeyPressTime,
                 handleKeyDown,
-                computeResults
+                computeResults,
+                resetTestData
             }}
         >
             {props.children}

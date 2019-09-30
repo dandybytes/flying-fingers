@@ -9,7 +9,8 @@ export default (state, action) => {
         timeLeft,
         cursorIndex,
         characterList,
-        wordList
+        wordList,
+        lastKeyPressTime
     } = state;
     var newState = {};
 
@@ -40,6 +41,20 @@ export default (state, action) => {
 
         case "set_cursor_index":
             return {...state, cursorIndex: action.index};
+
+        case "set_last_keypress_time":
+            return {...state, lastKeyPressTime: action.time};
+
+        case "reset_test_data":
+            return {
+                ...state,
+                testStarted: false,
+                testPaused: false,
+                testEnded: false,
+                timeLeft: testDuration,
+                lastKeyPressTime: null,
+                cursorIndex: 0
+            };
 
         case "compute_results":
             const calcCharResults = () => {
@@ -125,6 +140,9 @@ export default (state, action) => {
             return newState;
 
         case "handle_key_down":
+            // record the time of the current keystroke
+            let newKeyPressTime, timeDifference;
+
             let key = action.key;
 
             // if test paused or ended, ignore keystrokes
@@ -145,10 +163,14 @@ export default (state, action) => {
             if (isBackspace(key) && cursorIndex > 0) {
                 newCursorIndex = cursorIndex - 1;
                 newCharacterList[newCursorIndex].typedCharacter = null;
+                newKeyPressTime = new Date().getTime();
             }
 
             // when printable key pressed...
             if (cursorIndex < characterList.length && isValidInputChar(key)) {
+                // ...record time of printable keystroke
+                newKeyPressTime = new Date().getTime();
+                timeDifference = lastKeyPressTime ? newKeyPressTime - lastKeyPressTime : null;
                 // ...if the key is "enter", replace saved value with newline
                 if (key === "Enter") key = "\n";
                 // save the typed key in the current cursor character object
@@ -159,11 +181,13 @@ export default (state, action) => {
                 if (newTypedCharInventory[correctChar]) {
                     // ...add current cursor index to its list of occurrences
                     newTypedCharInventory[correctChar].occurrences.push(cursorIndex); //prettier-ignore
+                    if (timeDifference) newTypedCharInventory[correctChar].speed.push(timeDifference); //prettier-ignore
                 } else {
-                    // ...otherwise, register the correct char at current cursor location in inventory
+                    // ...otherwise, register the correct char in inventory
                     newTypedCharInventory[correctChar] = {
-                        occurrences: [cursorIndex],
-                        mistypes: []
+                        occurrences: [{cursorIndex, time: newKeyPressTime, charTyped: key}],
+                        mistypes: [],
+                        speed: timeDifference ? [timeDifference] : []
                     };
                 }
 
@@ -181,12 +205,15 @@ export default (state, action) => {
                 newCursorIndex = cursorIndex + 1;
             }
 
-            return {
-                ...newState,
-                cursorIndex: newCursorIndex,
-                characterList: newCharacterList,
-                typedCharInventory: newTypedCharInventory
-            };
+            newState.cursorIndex = newCursorIndex;
+            newState.characterList = newCharacterList;
+            newState.typedCharInventory = newTypedCharInventory;
+
+            // update last key press time only when printable key or backspace pressed
+            if (isPrintableChar(key) || isBackspace(key))
+                newState.lastKeyPressTime = newKeyPressTime ? newKeyPressTime : null;
+
+            return newState;
 
         default:
             return state;
