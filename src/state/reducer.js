@@ -10,7 +10,8 @@ export default (state, action) => {
         cursorIndex,
         characterList,
         wordList,
-        lastKeyPressTime
+        lastKeyPressTime,
+        typedCharInventory
     } = state;
     var newState = {};
 
@@ -133,9 +134,54 @@ export default (state, action) => {
                 };
             };
 
+            const calcSpeedResults = () => {
+                let fastestThree = [],
+                    slowestThree = [];
+                // calc avarage val of arr by reducing arr items to sum and dividing by length
+                const averageOfArr = arr => arr.reduce((a, n) => a + n, 0) / arr.length;
+
+                const speedArr = Object.keys(typedCharInventory)
+                    // filter out null elements of speed array
+                    // then filter out speed arrays with no valid elements
+                    .filter(
+                        char =>
+                            typedCharInventory[char].speed.filter(s => typeof s === "number")
+                                .length > 0
+                    )
+                    // return array of subarrays containing 2 elements ([char, averageCharSpeed])
+                    .map(char => [char, averageOfArr(typedCharInventory[char].speed)])
+                    // sort in order of ascending average speed value
+                    .sort((a, b) => a[1] - b[1]);
+
+                // iterate through first 3 items of speedArr, which is sorted by speed in ascending order
+                for (let i = 0; i < 3; i++) {
+                    fastestThree.push(
+                        speedArr[i]
+                            ? // num of ms in min (60 * 1000) divided by speed in ms = chars / min
+                              [speedArr[i][0], ((60 * 1000) / speedArr[i][1]).toFixed(2)]
+                            : // if not enough values in speedArr, return empty strings to fill table cells
+                              ["NA", "NA"]
+                    );
+                }
+
+                // iterate through last 3 items of speedArr, which is sorted by speed in ascending order
+                for (let i = speedArr.length - 1; i > speedArr.length - 4; i--) {
+                    slowestThree.push(
+                        speedArr[i]
+                            ? // num of ms in min (60 * 1000) divided by speed in ms = chars / min
+                              [speedArr[i][0], ((60 * 1000) / speedArr[i][1]).toFixed(2)]
+                            : // if not enough values in speedArr, return empty strings to fill table cells
+                              ["NA", "NA"]
+                    );
+                }
+
+                return {speedArr, fastestThree, slowestThree};
+            };
+
             newState = {...state};
             newState.results.chars = calcCharResults();
             newState.results.words = calcWordResults();
+            newState.results.speed = calcSpeedResults();
 
             return newState;
 

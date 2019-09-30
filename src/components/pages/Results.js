@@ -28,6 +28,20 @@ const Results = () => {
         "adjusted speed (wpm)": (results.words.wordPerMin * results.chars.accuracy).toFixed(2)
     };
 
+    const fastestChars = {
+        character: "speed (chars / min)",
+        [results.speed.fastestThree[0][0]]: [results.speed.fastestThree[0][1]],
+        [results.speed.fastestThree[1][0]]: [results.speed.fastestThree[1][1]],
+        [results.speed.fastestThree[2][0]]: [results.speed.fastestThree[2][1]]
+    };
+
+    const slowestChars = {
+        character: "speed (chars / min)",
+        [results.speed.slowestThree[0][0]]: [results.speed.slowestThree[0][1]],
+        [results.speed.slowestThree[1][0]]: [results.speed.slowestThree[1][1]],
+        [results.speed.slowestThree[2][0]]: [results.speed.slowestThree[2][1]]
+    };
+
     return (
         <div className="Results">
             <header className="Results-header">
@@ -37,6 +51,8 @@ const Results = () => {
                 <Table title={"Total"} data={generalResults} />
                 <Table title={"Characters"} data={charResults} />
                 <Table title={"Words"} data={wordResults} />
+                <Table title={"Fastest Characters"} data={fastestChars} />
+                <Table title={"Slowest Characters"} data={slowestChars} />
             </main>
             <footer className="Results-footer">
                 <Button
