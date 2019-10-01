@@ -1,0 +1,37 @@
+.Slider {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 80%;
+    margin: 2rem auto;
+    border: 1px dotted #9dd5f4;
+    padding: 2rem;
+}
+
+.Slider-arrow {
+    position: absolute;
+    top: 50%;
+    display: inline-block;
+    border: solid #4392c7;
+    border-width: 0 3px 3px 0;
+    margin: 0 2rem;
+    padding: 20px;
+    cursor: pointer;
+    transition: border-color 0.3s ease;
+}
+
+.Slider-arrow:hover {
+    border: solid #9dd5f4;
+    border-width: 0 3px 3px 0;
+}
+
+.arrow-back {
+    left: 0;
+    transform: rotate(135deg);
+}
+
+.arrow-forward {
+    right: 0;
+    transform: rotate(-45deg);
+}
