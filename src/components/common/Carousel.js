@@ -1,7 +1,5 @@
-import React, {useContext, useState, useEffect} from "react";
+import React, {useState, useEffect} from "react";
 import PropTypes from "prop-types";
-import {Context} from "../../state/State";
-import Table from "./Table";
 import "./Carousel.css";
 
 const Carousel = ({slides, intervalBetweenSlides, className}) => {
@@ -12,6 +10,7 @@ const Carousel = ({slides, intervalBetweenSlides, className}) => {
         const nextSlide = (currentSlide + 1) % slides.length;
         const timeout = setTimeout(() => setCurrentSlide(nextSlide), timeoutInterval);
         return () => clearTimeout(timeout);
+        // eslint-disable-next-line
     }, [currentSlide, timeoutInterval]);
 
     const activateSlide = slideNum =>

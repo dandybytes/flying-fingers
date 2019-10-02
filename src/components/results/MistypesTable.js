@@ -19,7 +19,7 @@ const MistypesTable = ({caption, data, className}) => {
                     <tr key={`table-row-${index}`}>
                         <th>{item.char}</th>
                         <td>{item.mistypes}</td>
-                        <td>{item.mistypeIncidence.toFixed(2)}</td>
+                        <td>{`${(100 * item.mistypeIncidence).toFixed(1)}%`}</td>
                         <td>{item.charsTypedInstead}</td>
                     </tr>
                 ))}

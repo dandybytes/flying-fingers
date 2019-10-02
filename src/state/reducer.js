@@ -149,7 +149,7 @@ export default (state, action) => {
                                 .length > 0
                     )
                     // return array of subarrays containing 2 elements ([char, averageCharSpeed])
-                    .map(char => [char, averageOfArr(typedCharInventory[char].speed)])
+                    .map(char => [`_${char}_`, averageOfArr(typedCharInventory[char].speed)])
                     // sort in order of ascending average speed value
                     .sort((a, b) => a[1] - b[1]);
 
@@ -194,14 +194,17 @@ export default (state, action) => {
                         }, {});
 
                         const charsTypedInstead = Object.keys(charsTypedInsteadDictionary)
-                            .map(char => ({char, incidence: charsTypedInsteadDictionary[char]}))
+                            .map(char => ({
+                                char: `_${char}_`,
+                                incidence: charsTypedInsteadDictionary[char]
+                            }))
                             .sort((a, b) => b.incidence - a.incidence)
                             // .map(charObj => `${charObj.char}(x${charObj.incidence})`)
                             .map(charObj => `${charObj.char}`)
                             .join(" ");
 
                         return {
-                            char,
+                            char: `_${char}_`,
                             mistypes: typedCharInventory[char].mistypes.length,
                             mistypeIncidence:
                                 typedCharInventory[char].mistypes.length /

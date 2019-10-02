@@ -16,7 +16,7 @@
 .Modal-content {
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: space-around;
     /* align-items: center; */
     position: fixed;
     min-width: 30vw;

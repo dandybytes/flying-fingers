@@ -1,25 +1,9 @@
 .Table {
     margin: 1rem;
     border-collapse: collapse;
-    /* border-spacing: 0; */
-    /* color: #4392c7;
-    background-color: #9dd5f4; */
-    /* color: #9dd5f4; */
-    /* color: #705ca8; */
     color: rgba(0, 0, 0, 0.7);
-}
-
-.Table thead,
-.Table thead tr {
-    /* background-color: rgba(112, 92, 168, 0.2); */
-}
-
-/* .Table tr:nth-child(odd) {
-    background-color: rgba(157, 213, 244, 0.3);
-} */
-
-.Table tr:nth-child(even) {
-    /* background-color: rgba(112, 92, 168, 0.2); */
+    /* font-family: "Courier New", Courier, monospace; */
+    font-family: "Times New Roman", Times, serif;
 }
 
 .Table th,
@@ -41,6 +25,9 @@ td {
 .Table th {
     text-align: left;
     font-weight: 300;
+}
+
+.Table th td {
 }
 
 .Table td {
