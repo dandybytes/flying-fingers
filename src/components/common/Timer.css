@@ -1,0 +1,16 @@
+.Timer {
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    top: 5vmin;
+    right: 5vmin;
+    /* width: 10vmin;
+    height: 10vmin; */
+    color: #9dd5f4;
+}
+
+.Timer-content {
+    position: absolute;
+    font-size: 3.5vmin;
+}

@@ -1,7 +1,7 @@
 import React, {useContext, useState, useEffect} from "react";
 import {useKeyDown} from "../../hooks/hooks";
 import {Context} from "../../state/State";
-import Timer from "../Timer";
+import Timer from "./../common/Timer";
 import TextBox from "../text/TextBox";
 import Keyboard from "../keyboard/Keyboard";
 import Button from "../common/Button";
@@ -86,7 +86,7 @@ function Test() {
                 ) : timeLeft ? (
                     <h2>Press Esc to pause test</h2>
                 ) : (
-                    <h2>Click on the button below to see the test results</h2>
+                    <h2>Click below to see the results</h2>
                 )}
             </header>
             <main>

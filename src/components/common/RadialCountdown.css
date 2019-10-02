@@ -1,0 +1,18 @@
+.RadialCountdown {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* border: 1px dashed #9dd5f4; */
+    border-radius: 50%;
+    color: rgb(112, 92, 168);
+    color: #4392c7;
+    color: rgb(157, 213, 244);
+}
+
+.RadialCountdown-circle {
+    transform-origin: center;
+    /* scaleX(-1) flips the shape (yield mirror image) */
+    /* rotate(-90deg) adjusts starting location */
+    transform: scaleX(-1) rotate(-90deg);
+    transition: stroke-dashoffset 0.3s;
+}
