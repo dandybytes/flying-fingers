@@ -1,11 +1,13 @@
-import React, {useContext, useState, useEffect} from "react";
+import React, {useContext, useState, useEffect, useRef} from "react";
 import {useKeyDown} from "../../hooks/hooks";
 import {Context} from "../../state/State";
-import Timer from "./../common/Timer";
+import Timer from "../common/Timer";
 import TextBox from "../text/TextBox";
 import Keyboard from "../keyboard/Keyboard";
 import Button from "../common/Button";
-import Modal from "./../common/Modal";
+import Modal from "../common/Modal";
+import {isPrintableChar} from "../../utils/keyboardInputID";
+import soundAlertFile from "../../sound/error.mp3";
 import "./Test.css";
 
 function Test() {
@@ -14,6 +16,8 @@ function Test() {
         testPaused,
         testEnded,
         timeLeft,
+        characterList,
+        cursorIndex,
         setCurrentPage,
         setTestPaused,
         setTestEnded,
@@ -24,6 +28,8 @@ function Test() {
         computeResults,
         resetTestData
     } = useContext(Context);
+
+    const soundRef = useRef();
 
     let [showModal, setShowModal] = useState(false);
 
@@ -65,8 +71,20 @@ function Test() {
             setTestPaused(true);
             setShowModal(true);
         }
+
         handleKeyDown(e.key);
         scrollCursorToMiddleOfTextBox();
+
+        // if wrong key pressed, play error sound
+        if (
+            isPrintableChar(e.key) &&
+            testStarted &&
+            !testEnded &&
+            !testPaused &&
+            e.key !== characterList[cursorIndex].correctCharacter
+        ) {
+            soundRef.current.play();
+        }
     });
 
     // trigger result computation when time runs out
@@ -80,6 +98,10 @@ function Test() {
 
     return (
         <div className="Test">
+            <audio ref={soundRef}>
+                <source src={soundAlertFile} type="audio/mpeg" />
+            </audio>
+
             <header className="Test-header pulsate">
                 {!testStarted ? (
                     <h2>Start typing to begin the test!</h2>
