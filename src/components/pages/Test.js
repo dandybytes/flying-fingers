@@ -2,6 +2,7 @@ import React, {useContext, useState, useEffect, useRef} from "react";
 import {useKeyDown} from "../../hooks/hooks";
 import {Context} from "../../state/State";
 import Timer from "../common/Timer";
+import TypedCharAnimation from "./../text/TypedCharAnimation";
 import TextBox from "../text/TextBox";
 import Keyboard from "../keyboard/Keyboard";
 import Button from "../common/Button";
@@ -32,6 +33,7 @@ function Test() {
     const soundRef = useRef();
 
     let [showModal, setShowModal] = useState(false);
+    let [mistypeAnimation, setMistypeAnimation] = useState({typedChar: "", className: ""});
 
     useEffect(() => {
         // reset cursor, test status, and time left when Test page mounts
@@ -75,16 +77,24 @@ function Test() {
         handleKeyDown(e.key);
         scrollCursorToMiddleOfTextBox();
 
+        let timeout;
         // if wrong key pressed, play error sound
         if (
             isPrintableChar(e.key) &&
-            testStarted &&
+            // testStarted &&
             !testEnded &&
             !testPaused &&
             e.key !== characterList[cursorIndex].correctCharacter
         ) {
             soundRef.current.play();
+            setMistypeAnimation({typedChar: e.key, className: "TypedCharAnimation expanding"});
+            timeout = setTimeout(
+                () => setMistypeAnimation({typedChar: e.key, className: "TypedCharAnimation"}),
+                100
+            );
         }
+
+        return () => clearTimeout(timeout);
     });
 
     // trigger result computation when time runs out
@@ -101,6 +111,11 @@ function Test() {
             <audio ref={soundRef}>
                 <source src={soundAlertFile} type="audio/mpeg" />
             </audio>
+
+            <TypedCharAnimation
+                typedChar={mistypeAnimation.typedChar}
+                className={mistypeAnimation.className}
+            />
 
             <header className="Test-header pulsate">
                 {!testStarted ? (

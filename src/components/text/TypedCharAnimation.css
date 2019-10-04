@@ -1,0 +1,28 @@
+.TypedCharAnimation {
+    position: absolute;
+    align-self: center;
+    justify-self: center;
+    font-size: 5rem;
+    color: firebrick;
+    /* background-color: goldenrod; */
+    display: inline-block;
+    visibility: hidden;
+}
+
+.expanding {
+    visibility: visible;
+    animation-name: expanding;
+    animation-duration: 0.2s;
+    animation-fill-mode: forwards;
+}
+
+@keyframes expanding {
+    0% {
+        opacity: 1;
+        transform: scale(1);
+    }
+    100% {
+        opacity: 0;
+        transform: scale(20);
+    }
+}
