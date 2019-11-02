@@ -3,6 +3,9 @@
 # my notes
 /_notes
 
+# netlify
+/.netlify
+
 # dependencies
 /node_modules
 /.pnp

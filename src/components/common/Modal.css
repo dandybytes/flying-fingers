@@ -26,6 +26,9 @@
     /* border-radius: 1rem; */
     padding: 2.5rem;
     background-color: white;
+    font-size: 1vmin;
+    font-weight: 400;
+    letter-spacing: 0;
     opacity: 0;
     visibility: hidden;
 }
