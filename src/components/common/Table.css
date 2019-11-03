@@ -1,36 +1,33 @@
 .Table {
     margin: 1rem;
     border-collapse: collapse;
-    color: rgba(0, 0, 0, 0.7);
+    color: var(--color-3b);
     /* font-family: "Courier New", Courier, monospace; */
     font-family: "Times New Roman", Times, serif;
 }
 
-.Table th,
-td {
-    border: 1px dotted #9dd5f4;
-    padding: 0.5rem;
+.Table-th,
+.Table-td {
+    border: 1px dotted var(--color-2);
+    padding: 0.5rem 2rem;
 }
 
-.Table thead {
+.Table-thead {
     text-transform: uppercase;
     letter-spacing: 0.3rem;
 }
 
-.Table thead th {
+.Table-thead .Table-th {
     font-weight: 400;
     text-align: center;
 }
 
-.Table th {
+.Table-th {
     text-align: left;
     font-weight: 300;
 }
 
-.Table th td {
-}
-
-.Table td {
+.Table-td {
     font-weight: 300;
     text-align: center;
 }

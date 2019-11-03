@@ -4,27 +4,33 @@ import "./MistypesTable.css";
 
 const MistypesTable = ({caption, data, className}) => {
     return (
-        <table className={className}>
-            <caption>{caption}</caption>
-            <thead>
-                <tr>
-                    <th>character</th>
-                    <td>mistypes</td>
-                    <td>inaccuracy rate</td>
-                    <td>frequently typed instead</td>
-                </tr>
-            </thead>
-            <tbody>
-                {data.map((item, index) => (
-                    <tr key={`table-row-${index}`}>
-                        <th>{item.char}</th>
-                        <td>{item.mistypes}</td>
-                        <td>{`${(100 * item.mistypeIncidence).toFixed(1)}%`}</td>
-                        <td>{item.charsTypedInstead}</td>
-                    </tr>
-                ))}
-            </tbody>
-        </table>
+        <React.Fragment>
+            {data.length > 0 ? (
+                <table className={className}>
+                    <caption>{caption}</caption>
+                    <thead>
+                        <tr>
+                            <th>character</th>
+                            <td>mistypes</td>
+                            <td>inaccuracy rate</td>
+                            <td>frequently typed instead</td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {data.map((item, index) => (
+                            <tr key={`table-row-${index}`}>
+                                <th>{item.char}</th>
+                                <td>{item.mistypes}</td>
+                                <td>{`${(100 * item.mistypeIncidence).toFixed(1)}%`}</td>
+                                <td>{item.charsTypedInstead}</td>
+                            </tr>
+                        ))}
+                    </tbody>
+                </table>
+            ) : (
+                <p>no characters were mistyped</p>
+            )}
+        </React.Fragment>
     );
 };
 

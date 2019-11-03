@@ -5,16 +5,18 @@ import "./Table.css";
 const Table = ({title, data, className}) => {
     return (
         <table className={className}>
-            <thead>
-                <tr>
-                    <th colSpan="2">{title}</th>
+            <thead className={`${className}-thead`}>
+                <tr className={`${className}-tr`}>
+                    <th colSpan="2" className={`${className}-th`}>
+                        {title}
+                    </th>
                 </tr>
             </thead>
-            <tbody>
+            <tbody className={`${className}-tbody`}>
                 {Object.keys(data).map((key, index) => (
-                    <tr key={`table-row-${index}`}>
-                        <th>{key}</th>
-                        <td>{data[key]}</td>
+                    <tr key={`table-row-${index}`} className={`${className}-tr`}>
+                        <th className={`${className}-th`}>{key}</th>
+                        <td className={`${className}-td`}>{data[key]}</td>
                     </tr>
                 ))}
             </tbody>

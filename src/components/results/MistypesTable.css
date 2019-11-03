@@ -1,7 +1,7 @@
 .MistypesTable {
     margin: 1rem;
     border-collapse: collapse;
-    color: rgba(0, 0, 0, 0.7);
+    color: var(--color-3b);
     /* font-family: "Courier New", Courier, monospace; */
     font-family: "Times New Roman", Times, serif;
 }
@@ -12,7 +12,7 @@
 
 .MistypesTable th,
 td {
-    border: 1px dotted #9dd5f4;
+    border: 1px dotted var(--color-2);
     padding: 0.5rem;
 }
 
