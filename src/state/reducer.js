@@ -289,9 +289,12 @@ export default (state, action) => {
             if (cursorIndex < characterList.length && isValidInputChar(key)) {
                 // ...record time of printable keystroke
                 newKeyPressTime = new Date().getTime();
+                // ... compute time span since last key press
                 timeDifference = lastKeyPressTime ? newKeyPressTime - lastKeyPressTime : null;
                 // ...if the key is "enter", replace saved value with newline
                 if (key === "Enter") key = "\n";
+                // ...if they key is single quotation mark, replace
+                if (key === "'") key = "’";
                 // save the typed key in the current cursor character object
                 newCharacterList[cursorIndex].typedCharacter = key;
 
@@ -321,7 +324,8 @@ export default (state, action) => {
                     });
                 }
 
-                newCursorIndex = cursorIndex + 1;
+                newCursorIndex =
+                    cursorIndex < characterList.length - 1 ? cursorIndex + 1 : cursorIndex;
             }
 
             newState.cursorIndex = newCursorIndex;

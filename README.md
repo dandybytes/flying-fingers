@@ -1,6 +1,6 @@
 # FLYING FINGERS
 
-Flying Fingers is a typing performance assessment app created with [React.js](http://facebook.github.io/react/index.html). It uses pure stateless functional components with hooks.
+Flying Fingers is a typing performance assessment app created with [React.js](http://facebook.github.io/react/index.html). It uses pure stateless functional components with React hooks and context. The app collects ample input data and computes detailed performance metrics, which are presented to the user at the end of the test.
 
 ![](https://github.com/dandybytes/flying-fingers/blob/master/docs/flyingfingers-min.PNG)
 
@@ -10,11 +10,11 @@ Flying Fingers is a typing performance assessment app created with [React.js](ht
 
 ## Tech Tools
 
-| tool             | description   |
-| :-------------:|--------------|
-| [React](http://facebook.github.io/react/index.html) | front-end JavaScript-based library |
-| [Babel](https://babeljs.io/) | ECMAScript transpiler |
-| [Webpack](https://webpack.js.org/) | task management and module bundling toolkit |
+|                        tool                         | description                                 |
+| :-------------------------------------------------: | ------------------------------------------- |
+| [React](http://facebook.github.io/react/index.html) | front-end JavaScript-based library          |
+|            [Babel](https://babeljs.io/)             | ECMAScript transpiler                       |
+|         [Webpack](https://webpack.js.org/)          | task management and module bundling toolkit |
 
 ## Features:
 

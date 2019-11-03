@@ -64,7 +64,9 @@ function Test() {
     const scrollCursorToMiddleOfTextBox = () => {
         const textBoxFrame = document.querySelector(".TextBox-Frame");
         const cursorCharacter = document.querySelector(".Character-cursor");
-        textBoxFrame.scrollTop = cursorCharacter.offsetTop - textBoxFrame.offsetTop - 4 * 16;
+        if (cursorCharacter) {
+            textBoxFrame.scrollTop = cursorCharacter.offsetTop - textBoxFrame.offsetTop - 4 * 16;
+        }
     };
 
     // listen to keyboard input events
@@ -79,17 +81,19 @@ function Test() {
 
         let timeout;
         // if wrong key pressed, play error sound
+        let pressedKey = e.key;
+        if (pressedKey === "'") pressedKey = "’";
         if (
-            isPrintableChar(e.key) &&
+            isPrintableChar(pressedKey) &&
             // testStarted &&
             !testEnded &&
             !testPaused &&
-            e.key !== characterList[cursorIndex].correctCharacter
+            pressedKey !== characterList[cursorIndex].correctCharacter
         ) {
             soundRef.current.play();
-            setMistypeAnimation({typedChar: e.key, className: "TypedCharAnimation expanding"});
+            setMistypeAnimation({typedChar: pressedKey, className: "TypedCharAnimation expanding"});
             timeout = setTimeout(
-                () => setMistypeAnimation({typedChar: e.key, className: "TypedCharAnimation"}),
+                () => setMistypeAnimation({typedChar: pressedKey, className: "TypedCharAnimation"}),
                 100
             );
         }
