@@ -1,5 +1,28 @@
 import {isPrintableChar, isBackspace, isValidInputChar} from "../utils/keyboardInputID";
 
+const initialResults = {
+    chars: {
+        total: 0,
+        correct: 0,
+        mistyped: 0,
+        corrected: 0,
+        charPerMin: 0,
+        accuracy: 0
+    },
+    words: {
+        total: 0,
+        correct: 0,
+        mistyped: 0,
+        wordPerMin: 0
+    },
+    speed: {
+        speedArr: [].slice(),
+        fastestThree: [].slice(),
+        slowestThree: [].slice()
+    },
+    mistypeStats: [].slice()
+};
+
 export default (state, action) => {
     var {
         testStarted,
@@ -54,7 +77,9 @@ export default (state, action) => {
                 testEnded: false,
                 timeLeft: testDuration,
                 lastKeyPressTime: null,
-                cursorIndex: 0
+                cursorIndex: 0,
+                typedCharInventory: {},
+                results: {...initialResults}
             };
 
         case "compute_results":

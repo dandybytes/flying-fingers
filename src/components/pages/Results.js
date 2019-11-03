@@ -30,28 +30,62 @@ const Results = () => {
         "adjusted speed (wpm)": (results.words.wordPerMin * results.chars.accuracy).toFixed(1)
     };
 
-    const fastestChars = {
-        character: "speed (chars / min)",
-        [results.speed.fastestThree[0][0]]: [results.speed.fastestThree[0][1]],
-        [results.speed.fastestThree[1][0]]: [results.speed.fastestThree[1][1]],
-        [results.speed.fastestThree[2][0]]: [results.speed.fastestThree[2][1]]
-    };
+    // the results tables will always be rendered/mounted after taking at least one test...
+    // however, resetting results data when retaking a test will wipe the data structures...
+    // ... for fastest & slowest; so, need to validate presence of data
+    const fastestChars =
+        results.speed.fastestThree[2] && results.speed.fastestThree[2][1]
+            ? {
+                  character: "speed (chars / min)",
+                  [results.speed.fastestThree[0][0]]: [results.speed.fastestThree[0][1]],
+                  [results.speed.fastestThree[1][0]]: [results.speed.fastestThree[1][1]],
+                  [results.speed.fastestThree[2][0]]: [results.speed.fastestThree[2][1]]
+              }
+            : {
+                  character: "speed (chars / min)",
+                  1: "NA",
+                  2: "NA",
+                  3: "NA"
+              };
 
-    const slowestChars = {
-        character: "speed (chars / min)",
-        [results.speed.slowestThree[0][0]]: [results.speed.slowestThree[0][1]],
-        [results.speed.slowestThree[1][0]]: [results.speed.slowestThree[1][1]],
-        [results.speed.slowestThree[2][0]]: [results.speed.slowestThree[2][1]]
-    };
+    const slowestChars =
+        results.speed.slowestThree[2] && results.speed.slowestThree[2][1]
+            ? {
+                  character: "speed (chars / min)",
+                  [results.speed.slowestThree[0][0]]: [results.speed.slowestThree[0][1]],
+                  [results.speed.slowestThree[1][0]]: [results.speed.slowestThree[1][1]],
+                  [results.speed.slowestThree[2][0]]: [results.speed.slowestThree[2][1]]
+              }
+            : {
+                  character: "speed (chars / min)",
+                  1: "NA",
+                  2: "NA",
+                  3: "NA"
+              };
 
     const mistypeStats = results.mistypeStats.filter(x => x.mistypes > 0).slice(0, 4);
 
     const tabs = [
-        {title: "Total", content: <Table title={"Total"} data={generalResults} />},
-        {title: "Characters", content: <Table title={"Characters"} data={charResults} />},
-        {title: "Words", content: <Table title={"Words"} data={wordResults} />},
-        {title: "Fastest", content: <Table title={"Fastest Characters"} data={fastestChars} />},
-        {title: "Slowest", content: <Table title={"Slowest Characters"} data={slowestChars} />},
+        {
+            title: "Total",
+            content: <Table title={"Total"} data={generalResults} />
+        },
+        {
+            title: "Characters",
+            content: <Table title={"Characters"} data={charResults} />
+        },
+        {
+            title: "Words",
+            content: <Table title={"Words"} data={wordResults} />
+        },
+        {
+            title: "Fastest",
+            content: <Table title={"Fastest Characters"} data={fastestChars} />
+        },
+        {
+            title: "Slowest",
+            content: <Table title={"Slowest Characters"} data={slowestChars} />
+        },
         {
             title: "Mistyped",
             content: (
@@ -75,8 +109,8 @@ const Results = () => {
                     text="Repeat Test"
                     type="button"
                     onClick={e => {
-                        resetTestData();
                         setCurrentPage("test");
+                        resetTestData();
                     }}
                     style={{marginTop: "5vh"}}
                 />
@@ -84,8 +118,8 @@ const Results = () => {
                     text="Take New Test"
                     type="button"
                     onClick={e => {
-                        resetTestData();
                         setCurrentPage("intro");
+                        resetTestData();
                     }}
                     style={{marginTop: "5vh"}}
                 />

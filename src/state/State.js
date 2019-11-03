@@ -12,10 +12,10 @@ const State = props => {
         testEnded: false,
         testDuration: 0,
         timeLeft: 0,
-        characterList: [],
-        wordList: [],
         cursorIndex: 0,
         lastKeyPressTime: null,
+        characterList: [],
+        wordList: [],
         typedCharInventory: {},
         results: {
             chars: {
@@ -30,7 +30,13 @@ const State = props => {
                 correct: 0,
                 mistyped: 0,
                 wordPerMin: 0
-            }
+            },
+            speed: {
+                speedArr: [],
+                fastestThree: [],
+                slowestThree: []
+            },
+            mistypeStats: []
         }
     };
 
