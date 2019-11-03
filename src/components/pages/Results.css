@@ -1,3 +1,7 @@
+.Results {
+    position: relative;
+}
+
 .Results h1 {
     color: #9dd5f4;
     text-shadow: 0 0 6px rgba(155, 215, 245, 0.5);

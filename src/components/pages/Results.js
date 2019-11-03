@@ -1,7 +1,7 @@
 import React, {useContext} from "react";
 import {Context} from "./../../state/State";
-import Carousel from "../common/Carousel";
 import Table from "../common/Table";
+import TabBoard from "../common/TabBoard";
 import MistypesTable from "./../results/MistypesTable";
 import Button from "../common/Button";
 import "./Results.css";
@@ -44,15 +44,23 @@ const Results = () => {
         [results.speed.slowestThree[2][0]]: [results.speed.slowestThree[2][1]]
     };
 
-    const mistypeStats = results.mistypeStats.slice(0, 4);
+    const mistypeStats = results.mistypeStats.filter(x => x.mistypes > 0).slice(0, 4);
 
-    const slides = [
-        <Table title={"Total"} data={generalResults} />,
-        <Table title={"Characters"} data={charResults} />,
-        <Table title={"Words"} data={wordResults} />,
-        <Table title={"Fastest Characters"} data={fastestChars} />,
-        <Table title={"Slowest Characters"} data={slowestChars} />,
-        <MistypesTable caption={"Most Frequently Mistyped Characters"} data={mistypeStats} />
+    const tabs = [
+        {title: "Total", content: <Table title={"Total"} data={generalResults} />},
+        {title: "Characters", content: <Table title={"Characters"} data={charResults} />},
+        {title: "Words", content: <Table title={"Words"} data={wordResults} />},
+        {title: "Fastest", content: <Table title={"Fastest Characters"} data={fastestChars} />},
+        {title: "Slowest", content: <Table title={"Slowest Characters"} data={slowestChars} />},
+        {
+            title: "Mistyped",
+            content: (
+                <MistypesTable
+                    caption={"Most Frequently Mistyped Characters"}
+                    data={mistypeStats}
+                />
+            )
+        }
     ];
 
     return (
@@ -60,7 +68,7 @@ const Results = () => {
             <header className="Results-header">
                 <h1>Test Results</h1>
             </header>
-            <Carousel slides={slides} />
+            <TabBoard tabs={tabs} />
             <main className="Results-main"></main>
             <footer className="Results-footer">
                 <Button

@@ -1,0 +1,120 @@
+.tab-board {
+    position: relative;
+    height: 25rem;
+    max-height: 80vh;
+    /* width: 90%;
+    max-width: 100vh; */
+    display: flex;
+    justify-content: space-evenly;
+    margin: 2rem 0;
+    text-align: center;
+    color: var(--color-3b);
+    overflow: hidden;
+}
+
+.tab-selector-input {
+    display: none;
+}
+
+.tab-title-label {
+    height: 2rem;
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0.5rem 1rem;
+    background-color: var(--color-1b);
+    font-weight: 400;
+    font-size: 0.9rem;
+    letter-spacing: 0.1rem;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.tab-title-label:not(:last-of-type) {
+    margin-right: 0.1rem;
+}
+
+.tab-title-label:hover,
+.tab-selector-input:checked + .tab-title-label {
+    background-color: var(--color-1);
+}
+
+.tab-content {
+    /* width: 100%; */
+    /* height: calc(100% - 2.1rem); */
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    top: 2.1rem;
+    /* top: 0; */
+    left: 0;
+    right: 0;
+    bottom: 0;
+    padding: 0 1rem;
+    background-color: var(--color-1c);
+    font-size: 0.8rem;
+    line-height: 1.2rem;
+    letter-spacing: 0;
+    text-transform: none;
+    cursor: auto;
+    visibility: hidden;
+    opacity: 0;
+    transition: all 1s;
+}
+
+.tab-selector-input:checked + .tab-title-label .tab-content {
+    visibility: visible;
+    opacity: 1;
+}
+
+@media only screen and (min-width: 560px) {
+    .tab-title-label {
+        font-size: 1rem;
+    }
+}
+
+@media only screen and (min-width: 760px) and (min-height: 760px) {
+    /* .tab-board {
+        height: 30rem;
+    } */
+
+    .tab-title-label {
+        height: 2.5rem;
+        font-size: 1.3rem;
+        letter-spacing: 0.2rem;
+        line-height: 2rem;
+    }
+
+    .tab-title-label:not(:last-of-type) {
+        margin-right: 0.2rem;
+    }
+
+    .tab-content {
+        top: 2.7rem;
+        /* height: calc(100% - 2.5rem); */
+        padding: 0 3rem;
+        font-size: 1.2rem;
+        line-height: 2rem;
+    }
+}
+
+@media only screen and (min-width: 1000px) and (min-height: 760px) {
+    /* .tab-board {
+        height: 35rem;
+    } */
+
+    .tab-title-label {
+        height: 3rem;
+    }
+
+    .tab-content {
+        top: 3.2rem;
+        /* height: calc(100% - 3rem); */
+        padding: 0 4rem;
+        line-height: 2rem;
+    }
+}
