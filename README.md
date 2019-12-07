@@ -23,5 +23,6 @@ Flying Fingers is a typing performance assessment app created with [React.js](ht
 -   marks correctly typed and erroneously entered characters
 -   scrolls text box to display the text to be typed
 -   shows count-down timer
+-   displays suggestions on how to place fingers on the keyboard to type the next character
 -   allows the user to pause the test without affecting the performance statistics
 -   collects ample typing performance data and computes detailed metrics at the end of the test
